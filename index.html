@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lenga · Análisis territorial para proyectos de impacto</title>
+  <meta name="description" content="Convertimos tus datos de campo en evidencia que convence a financiadores y mueve decisiones. Análisis espacial, visualización geográfica y reportes de impacto." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* =============================================
+       VARIABLES — cambiá colores acá si querés
+    ============================================= */
+    :root {
+      --tierra:    #7a4a2e;
+      --tierra-lt: #a8694a;
+      --crema:     #f5f0e8;
+      --crema-dk:  #ede6d8;
+      --marron:    #4a2c1a;
+      --verde:     #3d5c3a;
+      --gris:      #6b6560;
+      --blanco:    #ffffff;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+
+      --max-w: 1180px;
+      --pad:   clamp(1.5rem, 5vw, 4rem);
+    }
+
+    /* =============================================
+       RESET BÁSICO
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--crema);
+      color: var(--marron);
+      font-size: 1rem;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a  { color: inherit; text-decoration: none; }
+
+    /* =============================================
+       UTILIDADES
+    ============================================= */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+    .section { padding: clamp(4rem, 8vw, 7rem) 0; }
+    .label {
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--tierra);
+    }
+    .tag {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border: 1px solid var(--tierra-lt);
+      color: var(--tierra);
+      padding: .25rem .75rem;
+      border-radius: 100px;
+    }
+
+    /* =============================================
+       NAVEGACIÓN
+    ============================================= */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem var(--pad);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(245,240,232,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(122,74,46,.12);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(74,44,26,.08); }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--marron);
+      font-weight: 700;
+    }
+    .nav-logo span { color: var(--tierra); }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: .85rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      color: var(--gris);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--tierra); }
+    .nav-cta {
+      background: var(--tierra);
+      color: var(--blanco) !important;
+      padding: .55rem 1.3rem;
+      border-radius: 100px;
+      font-size: .82rem !important;
+      font-weight: 500 !important;
+      transition: background .2s !important;
+    }
+    .nav-cta:hover { background: var(--marron) !important; }
+
+    /* hamburger — solo mobile */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: .25rem;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--marron);
+      border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+
+    /* =============================================
+       HERO
+    ============================================= */
+    .hero {
+      min-height: 100svh;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: clamp(3rem, 8vw, 6rem);
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      /* 
+        IMAGEN: reemplazá esta URL con tu foto aérea del bosque/ruta.
+        Ejemplo: background-image: url('imagenes/hero.jpg');
+      */
+      background-image: linear-gradient(160deg, #3d5c3a 0%, #7a4a2e 50%, #2a1a0a 100%);
+      background-size: cover;
+      background-position: center;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(20,10,5,.75) 0%,
+        rgba(20,10,5,.2) 50%,
+        transparent 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: var(--blanco);
+      max-width: 780px;
+    }
+    .hero-content .label {
+      color: rgba(255,255,255,.7);
+      margin-bottom: 1.5rem;
+    }
+    .hero-content h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .hero-content h1 em {
+      font-style: italic;
+      color: #d4a87a;
+    }
+    .hero-content p {
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      color: rgba(255,255,255,.82);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .85rem 2rem;
+      border-radius: 100px;
+      font-size: .9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s, background .2s;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--tierra);
+      color: var(--blanco);
+      box-shadow: 0 4px 20px rgba(122,74,46,.4);
+    }
+    .btn-primary:hover {
+      background: var(--tierra-lt);
+      box-shadow: 0 8px 30px rgba(122,74,46,.5);
+    }
+    .btn-ghost {
+      background: rgba(255,255,255,.12);
+      color: var(--blanco);
+      border: 1px solid rgba(255,255,255,.3);
+      backdrop-filter: blur(6px);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.2); }
+
+    /* =============================================
+       PROPUESTA DE VALOR
+    ============================================= */
+    .valor { background: var(--blanco); }
+    .valor-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--crema-dk);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 3.5rem;
+    }
+    .valor-item {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--crema-dk);
+    }
+    .valor-item:last-child { border-right: none; }
+    .valor-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--crema-dk);
+      font-weight: 700;
+      margin-bottom: .75rem;
+    }
+    .valor-item h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--marron);
+      margin-bottom: .75rem;
+    }
+    .valor-item p {
+      font-size: .9rem;
+      color: var(--gris);
+      line-height: 1.6;
+    }
+
+    /* intro text */
+    .valor-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-bottom: 4rem;
+    }
+    .valor-intro h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      line-height: 1.2;
+      color: var(--marron);
+    }
+    .valor-intro h2 em { color: var(--tierra); font-style: italic; }
+    .valor-intro p {
+      color: var(--gris);
+      font-size: 1rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* =============================================
+       SOLUCIONES / TOOLBOX
+    ============================================= */
+    .soluciones { background: var(--crema); }
+    .section-header { margin-bottom: 3.5rem; }
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      margin-top: .75rem;
+      color: var(--marron);
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .tool-card {
+      background: var(--blanco);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--crema-dk);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .tool-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(74,44,26,.1);
+    }
+    /* 
+      IMAGEN: cada .tool-img es un placeholder.
+      Reemplazá el background-color con:
+      background-image: url('imagenes/sensores.jpg');
+      background-size: cover; background-position: center;
+    */
+    .tool-img {
+      height: 160px;
+      background-color: var(--crema-dk);
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-img.sensores    { background-color: #c8d8c0; }
+    .tool-img.dashboards  { background-color: #1a2a3a; }
+    .tool-img.mapas       { background-color: #8a9a7a; }
+    .tool-img.encuestas   { background-color: #b0956a; }
+    .tool-img.reportes    { background-color: #4a6a5a; }
+    .tool-img.visualiz    { background-color: #3a3a6a; }
+    .tool-img-label {
+      position: absolute;
+      bottom: .75rem;
+      left: .75rem;
+      background: rgba(0,0,0,.5);
+      color: #fff;
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .25rem .6rem;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    .tool-body { padding: 1.5rem; }
+    .tool-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--marron);
+      margin-bottom: .5rem;
+    }
+    .tool-body p {
+      font-size: .88rem;
+      color: var(--gris);
+      line-height: 1.6;
+    }
+
+    /* =============================================
+       CASOS DE USO
+    ============================================= */
+    .casos { background: var(--marron); color: var(--crema); }
+    .casos .section-header h2 { color: var(--crema); }
+    .casos .label { color: rgba(245,240,232,.5); }
+    .caso-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      padding: 3rem 0;
+      border-top: 1px solid rgba(245,240,232,.12);
+    }
+    .caso-item:first-of-type { border-top: none; }
+    .caso-img {
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      /* IMAGEN: reemplazá con background-image: url('imagenes/caso-cafe.jpg'); */
+      background: rgba(255,255,255,.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.2);
+      font-size: .85rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border: 1px dashed rgba(255,255,255,.15);
+    }
+    .caso-content .tag {
+      border-color: rgba(245,240,232,.25);
+      color: rgba(245,240,232,.6);
+      margin-bottom: 1.25rem;
+    }
+    .caso-content h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      color: var(--crema);
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+    .caso-content p {
+      font-size: .95rem;
+      color: rgba(245,240,232,.7);
+      line-height: 1.7;
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+    .caso-stats {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.75rem;
+    }
+    .stat { }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #d4a87a;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: .75rem;
+      color: rgba(245,240,232,.5);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-top: .25rem;
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--crema);
+      border: 1px solid rgba(245,240,232,.3);
+      padding: .7rem 1.6rem;
+      border-radius: 100px;
+      font-size: .85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s, border-color .2s;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(245,240,232,.6);
+    }
+
+    /* =============================================
+       TESTIMONIO
+    ============================================= */
+    .testimonio {
+      background: var(--tierra);
+      padding: clamp(3rem, 6vw, 5rem) 0;
+    }
+    .testimonio blockquote {
+      max-width: 750px;
+      margin: 0 auto;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+      font-style: italic;
+      color: var(--blanco);
+      line-height: 1.45;
+    }
+    .testimonio cite {
+      display: block;
+      margin-top: 1.5rem;
+      font-family: var(--font-body);
+      font-style: normal;
+      font-size: .85rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      color: rgba(255,255,255,.6);
+      text-transform: uppercase;
+    }
+
+    /* =============================================
+       METODOLOGÍA
+    ============================================= */
+    .metodologia { background: var(--crema); }
+    .metodologia-steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      margin-top: 3.5rem;
+    }
+    .step {
+      background: var(--blanco);
+      border-radius: 10px;
+      padding: 1.75rem 1.25rem;
+      border: 1px solid var(--crema-dk);
+      position: relative;
+    }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--crema-dk);
+      line-height: 1;
+      margin-bottom: .75rem;
+    }
+    .step h3 {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--tierra);
+      margin-bottom: .5rem;
+    }
+    .step p {
+      font-size: .85rem;
+      color: var(--gris);
+      line-height: 1.55;
+    }
+    /* flecha entre pasos */
+    .step::after {
+      content: '→';
+      position: absolute;
+      right: -1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--crema-dk);
+      font-size: 1.2rem;
+      z-index: 2;
+    }
+    .step:last-child::after { display: none; }
+
+    /* =============================================
+       NOSOTROS
+    ============================================= */
+    .nosotros { background: var(--blanco); }
+    .nosotros-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .nosotros-foto {
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      /* IMAGEN: reemplazá con tu foto
+         background-image: url('imagenes/santiago.jpg');
+         background-size: cover; background-position: center top;
+      */
+      background: var(--crema-dk);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gris);
+      font-size: .85rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border: 1px dashed rgba(122,74,46,.2);
+    }
+    .nosotros-content .label { margin-bottom: .75rem; }
+    .nosotros-content h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    .nosotros-content p {
+      font-size: .97rem;
+      color: var(--gris);
+      line-height: 1.75;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+    .nosotros-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: 1.75rem;
+    }
+
+    /* =============================================
+       CONTACTO
+    ============================================= */
+    .contacto { background: var(--crema-dk); }
+    .contacto-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .contacto-left h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--marron);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .contacto-left h2 em { color: var(--tierra); font-style: italic; }
+    .contacto-left p {
+      color: var(--gris);
+      font-size: .97rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .contacto-direct {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+    .contacto-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: .9rem;
+      font-weight: 500;
+      color: var(--tierra);
+      transition: gap .2s;
+    }
+    .contacto-link:hover { gap: .9rem; }
+    /* Formulario */
+    .form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; }
+    .form-group label {
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--tierra);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-family: var(--font-body);
+      font-size: .95rem;
+      padding: .85rem 1rem;
+      border: 1px solid rgba(122,74,46,.2);
+      border-radius: 8px;
+      background: var(--blanco);
+      color: var(--marron);
+      outline: none;
+      transition: border-color .2s;
+      resize: vertical;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--tierra);
+    }
+    .form-group textarea { min-height: 120px; }
+    .form .btn-primary { align-self: flex-start; margin-top: .5rem; }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      background: var(--marron);
+      color: rgba(245,240,232,.6);
+      padding: 2.5rem var(--pad);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--crema);
+      font-weight: 700;
+    }
+    .footer-logo span { color: var(--tierra-lt); }
+    footer p { font-size: .82rem; }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: .82rem;
+      color: rgba(245,240,232,.5);
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--crema); }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
+        top: 64px;
+        background: var(--crema);
+        padding: 2rem var(--pad);
+        gap: 1.5rem;
+        z-index: 99;
+      }
+      .nav-links.open a { font-size: 1.1rem; }
+      .hamburger { display: flex; }
+
+      .valor-intro    { grid-template-columns: 1fr; gap: 2rem; }
+      .valor-grid     { grid-template-columns: 1fr; }
+      .valor-item     { border-right: none; border-bottom: 1px solid var(--crema-dk); }
+      .valor-item:last-child { border-bottom: none; }
+
+      .tools-grid     { grid-template-columns: 1fr 1fr; }
+
+      .caso-item      { grid-template-columns: 1fr; gap: 2rem; }
+      .caso-item.reverse .caso-img { order: -1; }
+
+      .metodologia-steps { grid-template-columns: 1fr 1fr; }
+      .step::after { display: none; }
+
+      .nosotros-grid  { grid-template-columns: 1fr; gap: 2.5rem; }
+      .nosotros-foto  { aspect-ratio: 3/2; }
+
+      .contacto-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    @media (max-width: 600px) {
+      .tools-grid         { grid-template-columns: 1fr; }
+      .metodologia-steps  { grid-template-columns: 1fr; }
+      .caso-stats         { flex-wrap: wrap; gap: 1rem; }
+      footer              { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* =============================================
+       ANIMACIONES DE ENTRADA (suaves)
+    ============================================= */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== NAV ==================== -->
+  <nav id="navbar">
+    <a href="#inicio" class="nav-logo">Lenga<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#soluciones">Soluciones</a></li>
+      <li><a href="#casos">Casos de uso</a></li>
+      <li><a href="#metodologia">Metodología</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#contacto" class="nav-cta">Hablemos</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content fade-up">
+        <p class="label">Análisis territorial · Visualización geoespacial</p>
+        <h1>
+          La tierra habla.<br />
+          <em>Nosotros la hacemos</em><br />
+          hablar con datos.
+        </h1>
+        <p>
+          Convertimos lo que hacés en el territorio en evidencia que convence a financiadores,
+          mueve decisiones y multiplica tu impacto.
+        </p>
+        <div class="hero-actions">
+          <a href="#contacto" class="btn btn-primary">Hablemos de tu proyecto →</a>
+          <a href="#casos" class="btn btn-ghost">Ver casos de uso</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROPUESTA DE VALOR ==================== -->
+  <section class="valor section" id="propuesta">
+    <div class="container">
+      <div class="valor-intro">
+        <h2>
+          No hacemos mapas bonitos.<br />
+          Hacemos <em>herramientas</em><br />
+          que cambian decisiones.
+        </h2>
+        <p>
+          Trabajamos con ONGs, proyectos de conservación y organizaciones que necesitan
+          demostrar su impacto — a sus comunidades, a sus aliados y a sus financiadores.
+          Combinamos análisis espacial, experiencia de campo en Latinoamérica y metodología
+          rigurosa para que cada entrega sea una herramienta, no solo una imagen.
+        </p>
+      </div>
+      <div class="valor-grid">
+        <div class="valor-item fade-up">
+          <div class="valor-num">01</div>
+          <h3>Entendemos el territorio</h3>
+          <p>No solo analizamos datos: leemos el paisaje. Combinamos sensores remotos,
+             trabajo de campo y contexto local para resultados con sentido real.</p>
+        </div>
+        <div class="valor-item fade-up">
+          <div class="valor-num">02</div>
+          <h3>Hablamos con tus audiencias</h3>
+          <p>Sabemos que un mapa para un agricultor no es el mismo que para un financiador
+             internacional. Diseñamos cada entrega para la persona que la va a usar.</p>
+        </div>
+        <div class="valor-item fade-up">
+          <div class="valor-num">03</div>
+          <h3>Trabajamos con vos, no para vos</h3>
+          <p>Proceso colaborativo desde el día uno. Alineamos objetivos, metodología
+             y alcance antes de tocar un solo dato. Sin sorpresas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SOLUCIONES ==================== -->
+  <section class="soluciones section" id="soluciones">
+    <div class="container">
+      <div class="section-header">
+        <p class="label">Lo que hacemos</p>
+        <h2>Nuestras soluciones</h2>
+      </div>
+      <div class="tools-grid">
+
+        <div class="tool-card fade-up">
+          <!-- IMAGEN: cambiá el style inline por: style="background-image:url('imagenes/sensores.jpg');background-size:cover;background-position:center" -->
+          <div class="tool-img sensores">
+            <span class="tool-img-label">Sensores remotos</span>
+          </div>
+          <div class="tool-body">
+            <h3>Sensores remotos</h3>
+            <p>Observación de la Tierra mediante teledetección. Imágenes satelitales convertidas
+               en conocimiento aplicable sobre cobertura terrestre, vegetación y clima.</p>
+          </div>
+        </div>
+
+        <div class="tool-card fade-up">
+          <div class="tool-img dashboards">
+            <span class="tool-img-label">Dashboards geográficos</span>
+          </div>
+          <div class="tool-body">
+            <h3>Dashboards geográficos</h3>
+            <p>Visualizaciones interactivas que permiten explorar datos territoriales de forma
+               clara y potente, para tomar decisiones o presentar ante aliados.</p>
+          </div>
+        </div>
+
+        <div class="tool-card fade-up">
+          <div class="tool-img mapas">
+            <span class="tool-img-label">Mapas vectoriales y raster</span>
+          </div>
+          <div class="tool-body">
+            <h3>Mapas vectoriales y raster</h3>
+            <p>Representación precisa de territorios, infraestructuras y recursos.
+               Análisis espaciales adaptados a cada proyecto y contexto.</p>
+          </div>
+        </div>
+
+        <div class="tool-card fade-up">
+          <div class="tool-img encuestas">
+            <span class="tool-img-label">Diseño de encuestas</span>
+          </div>
+          <div class="tool-body">
+            <h3>Diseño de encuestas</h3>
+            <p>Metodologías personalizadas para recopilar información confiable y relevante.
+               Entender realidades locales y fortalecer la toma de decisiones.</p>
+          </div>
+        </div>
+
+        <div class="tool-card fade-up">
+          <div class="tool-img reportes">
+            <span class="tool-img-label">Reportes de impacto</span>
+          </div>
+          <div class="tool-body">
+            <h3>Reportes de impacto</h3>
+            <p>Análisis y síntesis de resultados para mostrar el impacto real de tus proyectos.
+               Útiles para rendir cuentas, evaluar logros y respaldar nuevos fondos.</p>
+          </div>
+        </div>
+
+        <div class="tool-card fade-up">
+          <div class="tool-img visualiz">
+            <span class="tool-img-label">Visualización de datos</span>
+          </div>
+          <div class="tool-body">
+            <h3>Visualización de datos</h3>
+            <p>Presentación clara de información compleja mediante gráficos, mapas e indicadores
+               que muestran el impacto real de tu proyecto de forma medible.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CASOS DE USO ==================== -->
+  <section class="casos section" id="casos">
+    <div class="container">
+      <div class="section-header">
+        <p class="label">En acción</p>
+        <h2>Casos de uso</h2>
+      </div>
+
+      <!-- CASO 1 -->
+      <div class="caso-item fade-up">
+        <div class="caso-img">
+          <!--
+            IMAGEN: reemplazá este div con:
+            <img src="imagenes/cafe-origenes.jpg" alt="Dashboard Café Orígenes" style="width:100%;height:100%;object-fit:cover;" />
+          -->
+          📍 Imagen: dashboard Café Orígenes
+        </div>
+        <div class="caso-content">
+          <span class="tag">Café de especialidad · Bolivia</span>
+          <h3>Café Orígenes & Yungas Coffee</h3>
+          <p>
+            En el mercado de commodities es clave destacarse. La trazabilidad del café de
+            especialidad es difícil de probar. Lenga desarrolló un dashboard geográfico
+            innovador que fue presentado en conferencias internacionales como la SCA.
+          </p>
+          <div class="caso-stats">
+            <div class="stat">
+              <div class="stat-num">95</div>
+              <div class="stat-label">Agricultores</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">140.5</div>
+              <div class="stat-label">Hectáreas sostenibles</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">230.4</div>
+              <div class="stat-label">Ha área total</div>
+            </div>
+          </div>
+          <!-- Podés agregar un link al dashboard si tenés uno público -->
+          <!-- <a href="#" class="btn-outline">Ver dashboard →</a> -->
+        </div>
+      </div>
+
+      <!-- CASO 2 — completá con tu segundo caso -->
+      <div class="caso-item reverse fade-up">
+        <div class="caso-content">
+          <span class="tag">Conservación · [País]</span>
+          <h3>Tu segundo caso de uso</h3>
+          <p>
+            Describí acá brevemente el proyecto: cuál era el problema, qué hizo Lenga
+            y cuál fue el resultado concreto para el cliente.
+          </p>
+          <div class="caso-stats">
+            <div class="stat">
+              <div class="stat-num">—</div>
+              <div class="stat-label">Resultado clave</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">—</div>
+              <div class="stat-label">Otro indicador</div>
+            </div>
+          </div>
+        </div>
+        <div class="caso-img">
+          📍 Imagen: caso 2
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIO ==================== -->
+  <section class="testimonio">
+    <div class="container">
+      <blockquote>
+        <!--
+          IMPORTANTE: reemplazá esto con una cita real de algún cliente.
+          Una sola frase auténtica vale más que todo el texto de descripción.
+        -->
+        "Lenga nos ayudó a contar con datos lo que siempre supimos que estábamos logrando.
+        Por primera vez pudimos presentarle a nuestros financiadores evidencia espacial real."
+        <cite>— Nombre del cliente, Organización · País</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ==================== METODOLOGÍA ==================== -->
+  <section class="metodologia section" id="metodologia">
+    <div class="container">
+      <div class="section-header">
+        <p class="label">Cómo trabajamos</p>
+        <h2>Metodología y enfoque</h2>
+      </div>
+      <div class="metodologia-steps">
+        <div class="step fade-up">
+          <div class="step-num">01</div>
+          <h3>Onboarding</h3>
+          <p>Definimos el área de trabajo, la muestra, alineamos objetivos y acordamos alcance y tiempos.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">02</div>
+          <h3>Método</h3>
+          <p>Validamos la metodología y viabilidad. Compartimos el plan que combina investigación, campo y análisis geoespacial.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">03</div>
+          <h3>Localización</h3>
+          <p>Contextualizamos el área de interés. Realizamos limpieza y organización de los datos.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">04</div>
+          <h3>Análisis</h3>
+          <p>Análisis de datos con soporte de literatura académica y benchmarking frente a proyectos similares.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">05</div>
+          <h3>Resultados</h3>
+          <p>Entregamos visualizaciones, reportes y herramientas diseñadas para tu audiencia específica.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== NOSOTROS ==================== -->
+  <section class="nosotros section" id="nosotros">
+    <div class="container">
+      <div class="nosotros-grid">
+        <div class="nosotros-foto">
+          <!--
+            IMAGEN: reemplazá con tu foto.
+            <img src="imagenes/santiago.jpg" alt="Santiago" style="width:100%;height:100%;object-fit:cover;" />
+          -->
+          📍 Tu foto acá
+        </div>
+        <div class="nosotros-content">
+          <p class="label">Quién está detrás</p>
+          <!--
+            Completá con tu nombre real, formación y trayectoria.
+            Ser unipersonal es un activo: los clientes contratan a una persona de confianza.
+          -->
+          <h2>Hola, soy Santiago.<br />Fundador de Lenga.</h2>
+          <p>
+            [Tu descripción personal acá — 2-3 párrafos. Contá tu formación, cuántos años
+            trabajando en análisis territorial, con qué tipo de proyectos y organizaciones
+            trabajaste. Qué te llevó a crear Lenga.]
+          </p>
+          <p>
+            Trabajo con organizaciones en toda Latinoamérica que necesitan demostrar
+            que su trabajo en el territorio tiene impacto real. Me especializo en traducir
+            datos complejos en herramientas concretas para comunidades, aliados y financiadores.
+          </p>
+          <div class="nosotros-tags">
+            <span class="tag">GIS & Análisis espacial</span>
+            <span class="tag">Sensores remotos</span>
+            <span class="tag">Diseño de encuestas</span>
+            <span class="tag">Reportes de impacto</span>
+            <span class="tag">Latinoamérica</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACTO ==================== -->
+  <section class="contacto section" id="contacto">
+    <div class="container">
+      <div class="contacto-inner">
+        <div class="contacto-left">
+          <p class="label">Hablemos</p>
+          <h2>¿Tenés un proyecto<br />en mente? <em>Contame.</em></h2>
+          <p>
+            No hace falta que tengas todo claro todavía. Contame en qué estás trabajando,
+            cuál es el desafío, y vemos juntos si podemos ayudarte.
+          </p>
+          <div class="contacto-direct">
+            <!--
+              Reemplazá con tu mail y número reales.
+              Para WhatsApp el formato es: https://wa.me/549XXXXXXXXXX (sin espacios ni guiones)
+            -->
+            <a href="mailto:santiago@lenga.lat" class="contacto-link">
+              ✉ santiago@lenga.lat
+            </a>
+            <a href="https://wa.me/549XXXXXXXXXX" class="contacto-link" target="_blank">
+              💬 WhatsApp directo →
+            </a>
+          </div>
+        </div>
+        <form class="form" id="contactForm">
+          <div class="form-group">
+            <label for="nombre">Tu nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="María García" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="maria@organización.org" required />
+          </div>
+          <div class="form-group">
+            <label for="tipo">Tipo de organización</label>
+            <select id="tipo" name="tipo">
+              <option value="">Seleccioná...</option>
+              <option>ONG / Sociedad civil</option>
+              <option>Proyecto de conservación</option>
+              <option>Empresa privada</option>
+              <option>Organismo público</option>
+              <option>Financiador / Fundación</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mensaje">¿En qué estás trabajando?</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Contame brevemente tu proyecto o el desafío que tenés..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar mensaje →</button>
+          <p id="formMsg" style="font-size:.85rem;color:var(--verde);display:none;margin-top:.5rem;">
+            ¡Mensaje enviado! Te respondo a la brevedad.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer>
+    <span class="footer-logo">Lenga<span>.</span></span>
+    <p>© 2025 Lenga · Análisis territorial para proyectos de impacto</p>
+    <ul class="footer-links">
+      <li><a href="#soluciones">Soluciones</a></li>
+      <li><a href="#casos">Casos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </footer>
+
+  <!-- ==================== JS ==================== -->
+  <script>
+    // --- Navbar scroll shadow ---
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // --- Hamburger mobile ---
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    // Cerrar menú al hacer click en un link
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // --- Animaciones fade-up con IntersectionObserver ---
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // pequeño delay escalonado para elementos en fila
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // --- Formulario (demo — sin backend todavía) ---
+    // Para conectar con un backend real, reemplazá el fetch con tu endpoint.
+    // Opciones gratuitas: Formspree, Web3Forms, EmailJS.
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Demo: solo muestra el mensaje de confirmación.
+      // Para activarlo de verdad, mirá la sección de comentarios abajo.
+      document.getElementById('formMsg').style.display = 'block';
+      this.reset();
+
+      /*
+        PARA ACTIVAR EL FORMULARIO REAL:
+        1. Creá una cuenta gratis en https://formspree.io
+        2. Creá un formulario, te dan un endpoint tipo: https://formspree.io/f/XXXXXXXX
+        3. Reemplazá el bloque de abajo:
+
+        const data = new FormData(this);
+        fetch('https://formspree.io/f/XXXXXXXX', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        }).then(() => {
+          document.getElementById('formMsg').style.display = 'block';
+          this.reset();
+        });
+      */
+    });
+  </script>
+
+</body>
+</html>
