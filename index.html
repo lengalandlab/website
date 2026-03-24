@@ -164,7 +164,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('./imagenes/UMAPATA.png') ;
+      background-image: url('./imagenes/bosque lengas.png') ;
       background-size: cover;
       background-position: center;
     }
@@ -811,7 +811,7 @@
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="container">
-      <div class="hero-content fade-up">
+      <div class="hero-content">
         <p class="label">Análisis territorial · Visualización geoespacial</p>
         <h1>
           La tierra habla.<br />
@@ -847,19 +847,19 @@
         </p>
       </div>
       <div class="valor-grid">
-        <div class="valor-item fade-up">
+        <div class="valor-item">
           <div class="valor-num">01</div>
           <h3>Entendemos el territorio</h3>
           <p>No solo analizamos datos: leemos el paisaje. Combinamos sensores remotos,
              trabajo de campo y contexto local para resultados con sentido real.</p>
         </div>
-        <div class="valor-item fade-up">
+        <div class="valor-item">
           <div class="valor-num">02</div>
           <h3>Hablamos con tus audiencias</h3>
           <p>Sabemos que un mapa para un agricultor no es el mismo que para un financiador
              internacional. Diseñamos cada entrega para la persona que la va a usar.</p>
         </div>
-        <div class="valor-item fade-up">
+        <div class="valor-item">
           <div class="valor-num">03</div>
           <h3>Trabajamos con vos, no para vos</h3>
           <p>Proceso colaborativo desde el día uno. Alineamos objetivos, metodología
@@ -878,7 +878,7 @@
       </div>
       <div class="tools-grid">
 
-        <div class="tool-card fade-up">
+        <div class="tool-card">
           <!-- IMAGEN: cambiá el style inline por: style="background-image:url('imagenes/sensores.jpg');background-size:cover;background-position:center" -->
           <div class="tool-img sensores">
             <span class="tool-img-label">Sensores remotos</span>
@@ -890,7 +890,7 @@
           </div>
         </div>
 
-        <div class="tool-card fade-up">
+        <div class="tool-card">
           <div class="tool-img dashboards">
             <span class="tool-img-label">Dashboards geográficos</span>
           </div>
@@ -901,7 +901,7 @@
           </div>
         </div>
 
-        <div class="tool-card fade-up">
+        <div class="tool-card">
           <div class="tool-img mapas">
             <span class="tool-img-label">Mapas vectoriales y raster</span>
           </div>
@@ -912,7 +912,7 @@
           </div>
         </div>
 
-        <div class="tool-card fade-up">
+        <div class="tool-card">
           <div class="tool-img encuestas">
             <span class="tool-img-label">Diseño de encuestas</span>
           </div>
@@ -923,7 +923,7 @@
           </div>
         </div>
 
-        <div class="tool-card fade-up">
+        <div class="tool-card">
           <div class="tool-img reportes">
             <span class="tool-img-label">Reportes de impacto</span>
           </div>
@@ -934,7 +934,7 @@
           </div>
         </div>
 
-        <div class="tool-card fade-up">
+        <div class="tool-card">
           <div class="tool-img visualiz">
             <span class="tool-img-label">Visualización de datos</span>
           </div>
@@ -958,7 +958,7 @@
       </div>
 
       <!-- CASO 1 -->
-      <div class="caso-item fade-up">
+      <div class="caso-item">
         <div class="caso-img">
           <!--
             IMAGEN: reemplazá este div con:
@@ -1044,27 +1044,27 @@
         <h2>Metodología y enfoque</h2>
       </div>
       <div class="metodologia-steps">
-        <div class="step fade-up">
+        <div class="step">
           <div class="step-num">01</div>
           <h3>Onboarding</h3>
           <p>Definimos el área de trabajo, la muestra, alineamos objetivos y acordamos alcance y tiempos.</p>
         </div>
-        <div class="step fade-up">
+        <div class="step">
           <div class="step-num">02</div>
           <h3>Método</h3>
           <p>Validamos la metodología y viabilidad. Compartimos el plan que combina investigación, campo y análisis geoespacial.</p>
         </div>
-        <div class="step fade-up">
+        <div class="step">
           <div class="step-num">03</div>
           <h3>Localización</h3>
           <p>Contextualizamos el área de interés. Realizamos limpieza y organización de los datos.</p>
         </div>
-        <div class="step fade-up">
+        <div class="step">
           <div class="step-num">04</div>
           <h3>Análisis</h3>
           <p>Análisis de datos con soporte de literatura académica y benchmarking frente a proyectos similares.</p>
         </div>
-        <div class="step fade-up">
+        <div class="step">
           <div class="step-num">05</div>
           <h3>Resultados</h3>
           <p>Entregamos visualizaciones, reportes y herramientas diseñadas para tu audiencia específica.</p>
@@ -1203,16 +1203,17 @@
 
     // --- Animaciones fade-up con IntersectionObserver ---
     const fadeEls = document.querySelectorAll('.fade-up');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          // pequeño delay escalonado para elementos en fila
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    fadeEls.forEach(el => observer.observe(el));
+    if (fadeEls.length > 0) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('visible'), i * 80);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+      fadeEls.forEach(el => observer.observe(el));
+    }
 
     // --- Formulario (demo — sin backend todavía) ---
     // Para conectar con un backend real, reemplazá el fetch con tu endpoint.
@@ -1233,4 +1234,3 @@
         const data = new FormData(this);
         fetch('https://formspree.io/f/XXXXXXXX', {
           method: 'POST',
-         
