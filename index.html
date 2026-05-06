@@ -7,812 +7,251 @@
   <meta name="description" content="Convertimos tus datos de campo en evidencia que convence a financiadores y mueve decisiones. Análisis espacial, visualización geográfica y reportes de impacto." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Identidad visual Lenga: Cormorant Garamond (display), Garet via bunny fonts, Open Sans (cuerpo) -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.bunny.net/css?family=garet:400,700" />
   <style>
-    /* =============================================
-       VARIABLES — cambiá colores acá si querés
-    ============================================= */
     :root {
-      /* === PALETA OFICIAL LENGA LAND LAB === */
-      --tierra:    #803B28;   /* Marrón Tierra — logotipo, títulos, elementos clave */
-      --tierra-lt: #a8694a;   /* variante más clara para hovers */
-      --crema:     #F4E7DC;   /* Beige Claro — fondo general */
-      --crema-dk:  #E2C8B7;   /* Rosa Piedra — fondos alternos, secciones suaves */
-      --marron:    #2B2B2B;   /* Negro Suave — texto principal, íconos */
-      --gris:      #A08070;   /* Gris Topográfico Suave — detalles, líneas, texturas */
-      --verde:     #3d5c3a;   /* acento verde para mensajes de éxito */
+      --tierra:    #803B28;
+      --tierra-lt: #a8694a;
+      --crema:     #F4E7DC;
+      --crema-dk:  #E2C8B7;
+      --marron:    #2B2B2B;
+      --gris:      #A08070;
+      --verde:     #3d5c3a;
       --blanco:    #ffffff;
-
-      /* === TIPOGRAFÍAS OFICIALES === */
-      --font-display: 'Cormorant Garamond', Georgia, serif; /* reemplaza Beautifully Delicious para web */
-      --font-sub:     'Garet', 'Open Sans', sans-serif;     /* subtítulos, navegación */
-      --font-body:    'Open Sans', sans-serif;              /* texto cuerpo */
-
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-sub:     'Garet', 'Open Sans', sans-serif;
+      --font-body:    'Open Sans', sans-serif;
       --max-w: 1180px;
       --pad:   clamp(1.5rem, 5vw, 4rem);
     }
-
-    /* =============================================
-       RESET BÁSICO
-    ============================================= */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-body);
-      background: var(--crema);
-      color: var(--marron);
-      font-size: 1rem;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-      font-weight: 400;
-    }
+    body { font-family: var(--font-body); background: var(--crema); color: var(--marron); font-size: 1rem; line-height: 1.7; -webkit-font-smoothing: antialiased; font-weight: 400; }
     img { display: block; max-width: 100%; }
-    a  { color: inherit; text-decoration: none; }
-
-    /* =============================================
-       UTILIDADES
-    ============================================= */
-    .container {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 var(--pad);
-    }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad); }
     .section { padding: clamp(4rem, 8vw, 7rem) 0; }
-    .label {
-      font-family: var(--font-sub);
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--tierra);
-    }
-    .tag {
-      display: inline-block;
-      font-family: var(--font-sub);
-      font-size: .68rem;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      border: 1px solid var(--tierra-lt);
-      color: var(--tierra);
-      padding: .25rem .75rem;
-      border-radius: 100px;
-    }
+    .label { font-family: var(--font-sub); font-size: .72rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--tierra); }
+    .tag { display: inline-block; font-family: var(--font-sub); font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; border: 1px solid var(--tierra-lt); color: var(--tierra); padding: .25rem .75rem; border-radius: 100px; }
 
-    /* =============================================
-       NAVEGACIÓN
-    ============================================= */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.25rem var(--pad);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(244,231,220,.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(128,59,40,.12);
-      transition: box-shadow .3s;
-    }
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.25rem var(--pad); display: flex; align-items: center; justify-content: space-between; background: rgba(244,231,220,.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(128,59,40,.12); transition: box-shadow .3s; }
     nav.scrolled { box-shadow: 0 2px 20px rgba(43,43,43,.08); }
-    .nav-logo {
-      font-family: var(--font-sub);
-      font-size: 1.3rem;
-      color: var(--marron);
-      font-weight: 700;
-    }
+    .nav-logo { font-family: var(--font-sub); font-size: 1.3rem; color: var(--marron); font-weight: 700; }
     .nav-logo span { color: var(--tierra); }
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-    .nav-links a {
-      font-family: var(--font-sub);
-      font-size: .85rem;
-      font-weight: 500;
-      letter-spacing: .06em;
-      color: var(--gris);
-      transition: color .2s;
-    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: var(--font-sub); font-size: .85rem; font-weight: 500; letter-spacing: .06em; color: var(--gris); transition: color .2s; }
     .nav-links a:hover { color: var(--tierra); }
-    .nav-cta {
-      background: var(--tierra);
-      color: var(--blanco) !important;
-      padding: .55rem 1.3rem;
-      border-radius: 100px;
-      font-size: .82rem !important;
-      font-weight: 600 !important;
-      letter-spacing: .04em;
-      transition: background .2s !important;
-    }
+    .nav-cta { background: var(--tierra); color: var(--blanco) !important; padding: .55rem 1.3rem; border-radius: 100px; font-size: .82rem !important; font-weight: 600 !important; letter-spacing: .04em; transition: background .2s !important; }
     .nav-cta:hover { background: var(--tierra-lt) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: .25rem; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--marron); border-radius: 2px; transition: transform .3s, opacity .3s; }
 
-    /* hamburger — solo mobile */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: .25rem;
-    }
-    .hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--marron);
-      border-radius: 2px;
-      transition: transform .3s, opacity .3s;
-    }
-
-    /* =============================================
-       HERO
-    ============================================= */
-    .hero {
-      min-height: 100svh;
-      position: relative;
-      display: flex;
-      align-items: flex-end;
-      justify-content: flex-start;
-      padding-bottom: clamp(3rem, 8vw, 6rem);
-      overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('./imagenes/juihuay_hero.JPG') ;
-      background-size: cover;
-      background-position: center;
-    }
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(20,10,5,.75) 0%,
-        rgba(20,10,5,.2) 50%,
-        transparent 100%
-      );
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      color: var(--blanco);
-      max-width: 780px;
-    }
-    .hero-content .label {
-      font-family: var(--font-sub);
-      color: rgba(255,255,255,.7);
-      margin-bottom: 1.5rem;
-      letter-spacing: .2em;
-    }
-    .hero-content h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 600;
-      line-height: 1.08;
-      margin-bottom: 1.5rem;
-      letter-spacing: .02em;
-    }
-    .hero-content h1 em {
-      font-style: italic;
-      color: var(--crema-dk);
-    }
-    .hero-content p {
-      font-size: clamp(1rem, 1.5vw, 1.15rem);
-      color: rgba(255,255,255,.82);
-      max-width: 520px;
-      margin-bottom: 2.5rem;
-      font-weight: 300;
-    }
+    /* HERO */
+    .hero { min-height: 100svh; position: relative; display: flex; align-items: flex-end; justify-content: flex-start; padding-bottom: clamp(3rem, 8vw, 6rem); overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background-image: url('./imagenes/juihuay_hero.JPG'); background-size: cover; background-position: center; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,10,5,.75) 0%, rgba(20,10,5,.2) 50%, transparent 100%); }
+    .hero-content { position: relative; z-index: 2; color: var(--blanco); max-width: 780px; }
+    .hero-content .label { color: rgba(255,255,255,.7); margin-bottom: 1.5rem; }
+    .hero-content h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 600; line-height: 1.08; margin-bottom: 1.5rem; letter-spacing: .02em; }
+    .hero-content h1 em { font-style: italic; color: var(--crema-dk); }
+    .hero-content p { font-size: clamp(1rem, 1.5vw, 1.15rem); color: rgba(255,255,255,.82); max-width: 520px; margin-bottom: 2.5rem; font-weight: 300; }
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn {
-      display: inline-flex;
-      align-items: left;
-      gap: .5rem;
-      padding: .85rem 2rem;
-      border-radius: 100px;
-      font-size: .9rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: transform .2s, box-shadow .2s, background .2s;
-      border: none;
-    }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 2rem; border-radius: 100px; font-size: .9rem; font-weight: 500; cursor: pointer; transition: transform .2s, box-shadow .2s, background .2s; border: none; }
     .btn:hover { transform: translateY(-2px); }
-    .btn-primary {
-      background: var(--tierra);
-      color: var(--blanco);
-      box-shadow: 0 4px 20px rgba(122,74,46,.4);
-    }
-    .btn-primary:hover {
-      background: var(--tierra-lt);
-      box-shadow: 0 8px 30px rgba(122,74,46,.5);
-    }
-    .btn-ghost {
-      background: rgba(255,255,255,.12);
-      color: var(--blanco);
-      border: 1px solid rgba(255,255,255,.3);
-      backdrop-filter: blur(6px);
-    }
+    .btn-primary { background: var(--tierra); color: var(--blanco); box-shadow: 0 4px 20px rgba(122,74,46,.4); }
+    .btn-primary:hover { background: var(--tierra-lt); box-shadow: 0 8px 30px rgba(122,74,46,.5); }
+    .btn-ghost { background: rgba(255,255,255,.12); color: var(--blanco); border: 1px solid rgba(255,255,255,.3); backdrop-filter: blur(6px); }
     .btn-ghost:hover { background: rgba(255,255,255,.2); }
 
-    /* =============================================
-       PROPUESTA DE VALOR
-    ============================================= */
+    /* DIFERENCIALES */
     .valor { background: var(--blanco); }
-    .valor-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      border: 1px solid var(--crema-dk);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-top: 3.5rem;
-    }
-    .valor-item {
-      padding: 2.5rem 2rem;
-      border-right: 1px solid var(--crema-dk);
-    }
-    .valor-item:last-child { border-right: none; }
-    .valor-num {
-      font-family: var(--font-display);
-      font-size: 2.8rem;
-      color: var(--crema-dk);
-      font-weight: 600;
-      margin-bottom: .75rem;
-      letter-spacing: .04em;
-    }
-    .valor-item h3 {
-      font-family: var(--font-sub);
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--tierra);
-      margin-bottom: .75rem;
-      letter-spacing: .04em;
-    }
-    .valor-item p {
-      font-size: .9rem;
-      color: var(--gris);
-      line-height: 1.7;
-    }
-
-    /* intro text */
-    .valor-intro {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-      margin-bottom: 4rem;
-    }
-    .valor-intro h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
-      line-height: 1.2;
-      color: var(--marron);
-      font-weight: 600;
-      letter-spacing: .02em;
-    }
+    .valor-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 4rem; }
+    .valor-intro h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 2.8vw, 2.4rem); line-height: 1.2; color: var(--marron); font-weight: 600; letter-spacing: .02em; }
     .valor-intro h2 em { color: var(--tierra); font-style: italic; }
-    .valor-intro p {
-      color: var(--gris);
-      font-size: .97rem;
-      line-height: 1.8;
-      font-weight: 300;
-    }
+    .valor-intro p { color: var(--gris); font-size: .97rem; line-height: 1.8; font-weight: 300; }
+    .valor-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--crema-dk); border-radius: 12px; overflow: hidden; }
+    .valor-item { padding: 2.5rem 2rem; border-right: 1px solid var(--crema-dk); }
+    .valor-item:last-child { border-right: none; }
+    .valor-num { font-family: var(--font-display); font-size: 2.8rem; color: var(--crema-dk); font-weight: 600; margin-bottom: .75rem; }
+    .valor-item h3 { font-family: var(--font-sub); font-size: 1rem; font-weight: 700; color: var(--tierra); margin-bottom: .75rem; letter-spacing: .04em; }
+    .valor-item p { font-size: .9rem; color: var(--gris); line-height: 1.7; }
 
-    /* =============================================
-       SOLUCIONES / TOOLBOX
-    ============================================= */
+    /* SOLUCIONES — filas hover horizontal */
     .soluciones { background: var(--crema); }
     .section-header { margin-bottom: 3.5rem; }
-    .section-header h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      margin-top: .75rem;
-      color: var(--marron);
-      font-weight: 600;
-      letter-spacing: .02em;
-    }
-    .label {
-      font-family: var(--font-sub);
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--tierra);
-    }
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-   .tool-card {
-  background: var(--blanco);
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid var(--crema-dk);
-  transition: transform .25s, box-shadow .25s;
-  position: relative;
-  cursor: pointer;
-}
-.tool-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(74,44,26,.1);
-}
-.tool-img {
-  height: 220px;
-  background-color: var(--crema-dk);
-  position: relative;
-  overflow: hidden;
-  transition: height .3s ease;
-}
-.tool-card:hover .tool-img {
-  height: 140px;
-}
-.tool-img.sensores  { background-image: url('./imagenes/RS_incendios.png');
-  background-size: cover; background-position: center; }
-.tool-img.dashboards { background-image: url('./imagenes/dashboard2.png');
-  background-size: cover; background-position: center bottom; }
-.tool-img.mapas     { background-image: url('./imagenes/mapas1.png');
-  background-size: cover; background-position: center; }
-.tool-img.encuestas { background-color: #b0956a; }
-.tool-img.reportes  { background-color: #4a6a5a; }
-.tool-img.visualiz  { background-color: #3a3a6a; }
-.tool-img-label {
-  position: absolute;
-  bottom: .75rem;
-  left: .75rem;
-  background: rgba(0,0,0,.5);
-  color: #fff;
-  font-size: .7rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  padding: .25rem .6rem;
-  border-radius: 4px;
-  font-weight: 500;
-}
-.tool-body {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  padding: 0 1.5rem;
-  transition: max-height .4s ease, opacity .3s ease, padding .3s ease;
-}
-.tool-card:hover .tool-body {
-  max-height: 200px;
-  opacity: 1;
-  padding: 1.5rem;
-}
-.tool-body h3 {
-  font-family: var(--font-sub);
-  font-size: .95rem;
-  font-weight: 700;
-  color: var(--tierra);
-  margin-bottom: .5rem;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-}
-.tool-body p {
-  font-size: .88rem;
-  color: var(--gris);
-  line-height: 1.7;
-}
+    .section-header h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); margin-top: .75rem; color: var(--marron); font-weight: 600; letter-spacing: .02em; }
+    .tools-grid { display: flex; flex-direction: column; border: 1px solid var(--crema-dk); border-radius: 14px; overflow: hidden; }
+    .tool-card { display: grid; grid-template-columns: 42% 58%; align-items: stretch; background: var(--blanco); border-bottom: 1px solid var(--crema-dk); transition: background .3s; min-height: 72px; }
+    .tool-card:last-child { border-bottom: none; }
+    .tool-card:hover { background: var(--crema); }
+    .tool-left { display: flex; align-items: center; gap: 1.25rem; padding: 1.25rem 1.75rem; border-right: 1px solid var(--crema-dk); }
+    .tool-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; color: var(--crema-dk); line-height: 1; min-width: 1.8rem; transition: color .3s; }
+    .tool-card:hover .tool-num { color: var(--tierra-lt); }
+    .tool-name { font-family: var(--font-display); font-size: clamp(1rem, 1.3vw, 1.15rem); font-weight: 600; color: var(--marron); line-height: 1.25; transition: color .3s; }
+    .tool-card:hover .tool-name { color: var(--tierra); }
+    .tool-body { padding: 1.25rem 1.75rem; display: flex; align-items: center; opacity: 0; transition: opacity .4s ease; }
+    .tool-card:hover .tool-body { opacity: 1; }
+    .tool-body p { font-size: .88rem; color: var(--gris); line-height: 1.65; font-weight: 300; }
 
-    /* =============================================
-       CASOS DE USO
-    ============================================= */
+    /* pasos inline */
+    .pasos-inline { display: flex; border: 1px solid var(--crema-dk); border-radius: 10px; overflow: hidden; background: var(--blanco); margin-top: .75rem; }
+    .paso-mini { flex: 1; padding: 1.1rem 1rem; border-right: 1px solid var(--crema-dk); }
+    .paso-mini:last-child { border-right: none; }
+    .paso-mini-num { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; color: var(--crema-dk); line-height: 1; margin-bottom: .3rem; }
+    .paso-mini h4 { font-family: var(--font-sub); font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--tierra); margin-bottom: .25rem; }
+    .paso-mini p { font-size: .76rem; color: var(--gris); line-height: 1.5; }
+
+    /* ENTREGABLES */
+    .entregables { background: var(--marron); color: var(--crema); padding: clamp(4rem, 7vw, 6rem) 0; }
+    .entregables-header { text-align: center; margin-bottom: 3rem; }
+    .entregables-header .label { color: rgba(244,231,220,.45); }
+    .entregables-header h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 2.8vw, 2.4rem); font-weight: 600; color: var(--crema); margin-top: .6rem; letter-spacing: .02em; line-height: 1.2; }
+    .entregables-header p { margin-top: .85rem; font-size: .97rem; color: rgba(244,231,220,.6); font-weight: 300; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .entregables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2.5rem; }
+    .entregable-card { border-radius: 14px; overflow: hidden; position: relative; aspect-ratio: 4/3; background: rgba(255,255,255,.06); border: 1px solid rgba(244,231,220,.1); }
+    .entregable-card.mapa      { background-image: url('./imagenes/entregable_mapa.jpg'); background-size: cover; background-position: center; }
+    .entregable-card.dashboard { background-image: url('./imagenes/entregable_dashboard.jpg'); background-size: cover; background-position: center; }
+    .entregable-card.reporte   { background-image: url('./imagenes/entregable_reporte.jpg'); background-size: cover; background-position: center; }
+    .entregable-base { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; background: linear-gradient(to top, rgba(20,10,5,.75) 0%, transparent 60%); transition: opacity .35s ease; }
+    .entregable-card:hover .entregable-base { opacity: 0; }
+    .entregable-tiempo { display: inline-block; font-family: var(--font-sub); font-size: .63rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--tierra-lt); border: 1px solid rgba(168,105,74,.5); padding: .2rem .65rem; border-radius: 100px; margin-bottom: .6rem; width: fit-content; }
+    .entregable-base h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; color: var(--crema); letter-spacing: .01em; line-height: 1.2; }
+    .entregable-hover { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 1.75rem; background: rgba(43,22,12,.92); opacity: 0; transition: opacity .35s ease; }
+    .entregable-card:hover .entregable-hover { opacity: 1; }
+    .entregable-hover h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; color: var(--crema); margin-bottom: .75rem; }
+    .entregable-hover p { font-size: .88rem; color: rgba(244,231,220,.75); line-height: 1.7; font-weight: 300; }
+    .entregable-hover .entregable-tiempo { margin-bottom: .9rem; }
+    .entregables-cta { text-align: center; }
+    .btn-crema { background: var(--crema); color: var(--tierra); font-weight: 700; padding: .9rem 2.2rem; border-radius: 100px; font-size: .9rem; display: inline-flex; align-items: center; gap: .5rem; transition: background .2s, transform .2s; border: none; cursor: pointer; }
+    .btn-crema:hover { background: var(--crema-dk); transform: translateY(-2px); }
+
+    /* CASOS */
     .casos { background: var(--tierra); color: var(--crema); }
     .casos .section-header h2 { color: var(--crema); }
     .casos .label { color: rgba(244,231,220,.5); }
-    .caso-item {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-      padding: 3rem 0;
-      border-top: 1px solid rgba(245,240,232,.12);
-    }
+    .caso-item { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; padding: 3rem 0; border-top: 1px solid rgba(245,240,232,.12); }
     .caso-item:first-of-type { border-top: none; }
-    .caso-img {
-      border-radius: 10px;
-      overflow: hidden;
-      aspect-ratio: 16/10;
-      /* IMAGEN: reemplazá con background-image: url('imagenes/caso-cafe.jpg'); */
-      background: rgba(255,255,255,.06);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255,255,255,.2);
-      font-size: .85rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      border: 1px dashed rgba(255,255,255,.15);
-    }
-    .caso-content .tag {
-      border-color: rgba(245,240,232,.25);
-      color: rgba(245,240,232,.6);
-      margin-bottom: 1.25rem;
-    }
-    .caso-content h3 {
-      font-family: var(--font-display);
-      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
-      color: var(--crema);
-      margin-bottom: 1rem;
-      line-height: 1.25;
-      font-weight: 600;
-      letter-spacing: .02em;
-    }
-    .caso-content p {
-      font-size: .95rem;
-      color: rgba(245,240,232,.7);
-      line-height: 1.7;
-      font-weight: 300;
-      margin-bottom: 1.5rem;
-    }
-    .caso-stats {
-      display: flex;
-      gap: 2rem;
-      margin-bottom: 1.75rem;
-    }
-    .stat { }
-    .stat-num {
-      font-family: var(--font-display);
-      font-size: 1.9rem;
-      font-weight: 700;
-      color: #d4a87a;
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: .75rem;
-      color: rgba(245,240,232,.5);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-top: .25rem;
-    }
-    .btn-outline {
-      background: transparent;
-      color: var(--crema);
-      border: 1px solid rgba(245,240,232,.3);
-      padding: .7rem 1.6rem;
-      border-radius: 100px;
-      font-size: .85rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background .2s, border-color .2s;
-      display: inline-flex;
-      align-items: center;
-      gap: .4rem;
-    }
-    .btn-outline:hover {
-      background: rgba(255,255,255,.08);
-      border-color: rgba(245,240,232,.6);
-    }
+    .caso-img { border-radius: 10px; overflow: hidden; aspect-ratio: 16/10; background: rgba(255,255,255,.06); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.2); font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; border: 1px dashed rgba(255,255,255,.15); }
+    .caso-content .tag { border-color: rgba(245,240,232,.25); color: rgba(245,240,232,.6); margin-bottom: 1.25rem; }
+    .caso-content h3 { font-family: var(--font-display); font-size: clamp(1.4rem, 2.5vw, 1.9rem); color: var(--crema); margin-bottom: 1rem; line-height: 1.25; font-weight: 600; letter-spacing: .02em; }
+    .caso-content p { font-size: .95rem; color: rgba(245,240,232,.7); line-height: 1.7; font-weight: 300; margin-bottom: 1.5rem; }
+    .caso-stats { display: flex; gap: 2rem; margin-bottom: 1.75rem; }
+    .stat-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; color: #d4a87a; line-height: 1; }
+    .stat-label { font-size: .75rem; color: rgba(245,240,232,.5); text-transform: uppercase; letter-spacing: .08em; margin-top: .25rem; }
 
-    /* =============================================
-       TESTIMONIO
-    ============================================= */
-    .testimonio {
-      background: var(--crema-dk);
-      padding: clamp(3rem, 6vw, 5rem) 0;
-      border-top: 1px solid rgba(128,59,40,.15);
-      border-bottom: 1px solid rgba(128,59,40,.15);
-    }
-    .testimonio blockquote {
-      max-width: 750px;
-      margin: 0 auto;
-      text-align: center;
-      font-family: var(--font-display);
-      font-size: clamp(1.4rem, 2.5vw, 2rem);
-      font-style: italic;
-      color: var(--tierra);
-      line-height: 1.45;
-      font-weight: 400;
-    }
-    .testimonio cite {
-      display: block;
-      margin-top: 1.5rem;
-      font-family: var(--font-sub);
-      font-style: normal;
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .15em;
-      color: var(--gris);
-      text-transform: uppercase;
-    }
+    /* TESTIMONIO */
+    .testimonio { background: var(--crema-dk); padding: clamp(3rem, 6vw, 5rem) 0; border-top: 1px solid rgba(128,59,40,.15); border-bottom: 1px solid rgba(128,59,40,.15); }
+    .testimonio blockquote { max-width: 750px; margin: 0 auto; text-align: center; font-family: var(--font-display); font-size: clamp(1.4rem, 2.5vw, 2rem); font-style: italic; color: var(--tierra); line-height: 1.45; font-weight: 400; }
+    .testimonio cite { display: block; margin-top: 1.5rem; font-family: var(--font-sub); font-style: normal; font-size: .78rem; font-weight: 700; letter-spacing: .15em; color: var(--gris); text-transform: uppercase; }
 
-    /* =============================================
-       METODOLOGÍA
-    ============================================= */
-    .metodologia { background: var(--crema); }
-    .metodologia-steps {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1rem;
-      margin-top: 3.5rem;
-    }
-    .step {
-      background: var(--blanco);
-      border-radius: 10px;
-      padding: 1.75rem 1.25rem;
-      border: 1px solid var(--crema-dk);
-      position: relative;
-    }
-    .step-num {
-      font-family: var(--font-display);
-      font-size: 2.8rem;
-      font-weight: 600;
-      color: var(--crema-dk);
-      line-height: 1;
-      margin-bottom: .75rem;
-      letter-spacing: .04em;
-    }
-    .step h3 {
-      font-family: var(--font-sub);
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--tierra);
-      margin-bottom: .5rem;
-    }
-    .step p {
-      font-size: .85rem;
-      color: var(--gris);
-      line-height: 1.55;
-    }
-    /* flecha entre pasos */
-    .step::after {
-      content: '→';
-      position: absolute;
-      right: -1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--crema-dk);
-      font-size: 1.2rem;
-      z-index: 2;
-    }
-    .step:last-child::after { display: none; }
+    /* NOSOTROS / VIDEO */
+    .nosotros-video { background: var(--marron); padding: clamp(4rem, 8vw, 7rem) 0; }
+    .video-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .video-wrap { border-radius: 12px; overflow: hidden; aspect-ratio: 16/9; background: rgba(255,255,255,.05); }
+    .video-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+    .video-text .label { color: rgba(244,231,220,.45); margin-bottom: 1rem; display: block; }
+    .video-text p { font-size: 1.05rem; color: rgba(244,231,220,.8); line-height: 1.85; font-weight: 300; font-family: var(--font-display); font-style: italic; }
+    .video-text p + p { margin-top: 1.25rem; }
 
-    /* =============================================
-       NOSOTROS
-    ============================================= */
-    .nosotros { background: var(--blanco); }
-    .nosotros-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-    .nosotros-foto {
-      border-radius: 12px;
-      overflow: hidden;
-      aspect-ratio: 4/5;
-      /* IMAGEN: reemplazá con tu foto
-         background-image: url('imagenes/santiago.jpg');
-         background-size: cover; background-position: center top;
-      */
-      background: var(--crema-dk);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--gris);
-      font-size: .85rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      border: 1px dashed rgba(122,74,46,.2);
-    }
-    .nosotros-content .label { margin-bottom: .75rem; }
-    .nosotros-content h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
-      font-weight: 600;
-      letter-spacing: .02em;
-      color: var(--marron);
-    }
-    .nosotros-content p {
-      font-size: .97rem;
-      color: var(--gris);
-      line-height: 1.75;
-      font-weight: 300;
-      margin-bottom: 1rem;
-    }
-    .nosotros-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-      margin-top: 1.75rem;
-    }
+    /* NUESTRO PORQUÉ */
+    .porque { background: var(--crema); }
+    .porque-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-bottom: 3.5rem; }
+    .porque-img-placeholder { width: 100%; background: var(--crema-dk); display: flex; align-items: center; justify-content: center; color: var(--gris); font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; aspect-ratio: 4/3; border-radius: 12px; border: 1px dashed rgba(122,74,46,.2); }
+    .porque-text .label { margin-bottom: 1rem; display: block; }
+    .porque-text h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 600; color: var(--marron); margin-bottom: 1.25rem; line-height: 1.2; letter-spacing: .02em; }
+    .porque-text h2 em { color: var(--tierra); font-style: italic; }
+    .porque-text p { font-size: .97rem; color: var(--gris); line-height: 1.8; font-weight: 300; margin-bottom: 1rem; }
+    .porque-stat { padding: 2.5rem; background: var(--tierra); border-radius: 12px; text-align: center; margin-bottom: 2rem; }
+    .porque-stat-num { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--crema); line-height: 1; margin-bottom: .75rem; }
+    .porque-stat p { font-size: .97rem; color: rgba(244,231,220,.75); line-height: 1.6; font-weight: 300; }
+    .porque-fotos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .porque-foto { border-radius: 10px; overflow: hidden; aspect-ratio: 4/3; background: var(--crema-dk); border: 1px dashed rgba(122,74,46,.2); display: flex; align-items: center; justify-content: center; color: var(--gris); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
+    .porque-frase { margin-top: 2.5rem; font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.5rem); font-style: italic; color: var(--tierra); text-align: center; letter-spacing: .02em; }
 
-    /* =============================================
-       CONTACTO
-    ============================================= */
+    /* CONTACTO */
     .contacto { background: var(--crema-dk); }
-    .contacto-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .contacto-left h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      color: var(--marron);
-      line-height: 1.2;
-      margin-bottom: 1rem;
-      font-weight: 600;
-      letter-spacing: .02em;
-    }
+    .contacto-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contacto-left h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--marron); line-height: 1.2; margin-bottom: 1rem; font-weight: 600; letter-spacing: .02em; }
     .contacto-left h2 em { color: var(--tierra); font-style: italic; }
-    .contacto-left p {
-      color: var(--gris);
-      font-size: .97rem;
-      line-height: 1.7;
-      font-weight: 300;
-    }
-    .contacto-direct {
-      margin-top: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: .75rem;
-    }
-    .contacto-link {
-      display: inline-flex;
-      align-items: center;
-      gap: .6rem;
-      font-size: .9rem;
-      font-weight: 500;
-      color: var(--tierra);
-      transition: gap .2s;
-    }
+    .contacto-left p { color: var(--gris); font-size: .97rem; line-height: 1.7; font-weight: 300; }
+    .contacto-direct { margin-top: 2rem; display: flex; flex-direction: column; gap: .75rem; }
+    .contacto-link { display: inline-flex; align-items: center; gap: .6rem; font-size: .9rem; font-weight: 500; color: var(--tierra); transition: gap .2s; }
     .contacto-link:hover { gap: .9rem; }
-    /* Formulario */
     .form { display: flex; flex-direction: column; gap: 1rem; }
     .form-group { display: flex; flex-direction: column; gap: .4rem; }
-    .form-group label {
-      font-family: var(--font-sub);
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--tierra);
-    }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      font-family: var(--font-body);
-      font-size: .95rem;
-      padding: .85rem 1rem;
-      border: 1px solid rgba(122,74,46,.2);
-      border-radius: 8px;
-      background: var(--blanco);
-      color: var(--marron);
-      outline: none;
-      transition: border-color .2s;
-      resize: vertical;
-    }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: var(--tierra);
-    }
+    .form-group label { font-family: var(--font-sub); font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--tierra); }
+    .form-group input, .form-group select, .form-group textarea { font-family: var(--font-body); font-size: .95rem; padding: .85rem 1rem; border: 1px solid rgba(122,74,46,.2); border-radius: 8px; background: var(--blanco); color: var(--marron); outline: none; transition: border-color .2s; resize: vertical; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--tierra); }
     .form-group textarea { min-height: 120px; }
     .form .btn-primary { align-self: flex-start; margin-top: .5rem; }
 
-    /* =============================================
-       FOOTER
-    ============================================= */
-    footer {
-      background: var(--marron);
-      color: rgba(244,231,220,.6);
-      padding: 2.5rem var(--pad);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .footer-logo {
-      font-family: var(--font-sub);
-      font-size: 1.1rem;
-      color: var(--crema);
-      font-weight: 700;
-      letter-spacing: .06em;
-    }
-    .footer-logo span { color: var(--tierra-lt); }
-    footer p { font-size: .82rem; font-family: var(--font-body); }
-    .footer-links {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-    }
-    .footer-links a {
-      font-family: var(--font-sub);
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .06em;
-      color: rgba(244,231,220,.5);
-      transition: color .2s;
-      text-transform: uppercase;
-    }
-    .footer-links a:hover { color: var(--crema); }
+    /* FOOTER */
+    footer { background: var(--marron); padding: 3.5rem var(--pad) 2rem; }
+    .footer-inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; align-items: start; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(244,231,220,.1); }
+    .footer-brand-logo { font-family: var(--font-sub); font-size: 1.1rem; color: var(--crema); font-weight: 700; letter-spacing: .06em; margin-bottom: .4rem; }
+    .footer-brand-logo span { color: var(--tierra-lt); }
+    .footer-tagline { font-family: var(--font-display); font-size: 1.5rem; font-style: italic; color: rgba(244,231,220,.35); line-height: 1.2; margin-bottom: 1.1rem; letter-spacing: .02em; }
+    .footer-contact { font-size: .85rem; color: rgba(244,231,220,.5); line-height: 1.8; }
+    .footer-contact a { color: rgba(244,231,220,.5); transition: color .2s; }
+    .footer-contact a:hover { color: var(--crema); }
+    .footer-col h4 { font-family: var(--font-sub); font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: rgba(244,231,220,.35); margin-bottom: .9rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .footer-col ul a { font-family: var(--font-sub); font-size: .82rem; color: rgba(244,231,220,.55); transition: color .2s; }
+    .footer-col ul a:hover { color: var(--crema); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 1.75rem; flex-wrap: wrap; gap: 1rem; }
+    .footer-copy { font-size: .78rem; color: rgba(244,231,220,.3); }
+    .footer-social { display: flex; gap: .75rem; }
+    .footer-social a { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(244,231,220,.2); color: rgba(244,231,220,.5); transition: border-color .2s, color .2s; }
+    .footer-social a:hover { border-color: var(--tierra-lt); color: var(--crema); }
+    .footer-social svg { width: 16px; height: 16px; fill: currentColor; }
 
-    /* =============================================
-       RESPONSIVE
-    ============================================= */
+    /* RESPONSIVE */
     @media (max-width: 900px) {
       .nav-links { display: none; }
-      .nav-links.open {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        inset: 0;
-        top: 64px;
-        background: var(--crema);
-        padding: 2rem var(--pad);
-        gap: 1.5rem;
-        z-index: 99;
-      }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; inset: 0; top: 64px; background: var(--crema); padding: 2rem var(--pad); gap: 1.5rem; z-index: 99; }
       .nav-links.open a { font-size: 1.1rem; }
       .hamburger { display: flex; }
-
-      .valor-intro    { grid-template-columns: 1fr; gap: 2rem; }
-      .valor-grid     { grid-template-columns: 1fr; }
-      .valor-item     { border-right: none; border-bottom: 1px solid var(--crema-dk); }
+      .valor-intro { grid-template-columns: 1fr; gap: 2rem; }
+      .valor-grid { grid-template-columns: 1fr; }
+      .valor-item { border-right: none; border-bottom: 1px solid var(--crema-dk); }
       .valor-item:last-child { border-bottom: none; }
-
-      .tools-grid     { grid-template-columns: 1fr 1fr; }
-
-      .caso-item      { grid-template-columns: 1fr; gap: 2rem; }
-      .caso-item.reverse .caso-img { order: -1; }
-
-      .metodologia-steps { grid-template-columns: 1fr 1fr; }
-      .step::after { display: none; }
-
-      .nosotros-grid  { grid-template-columns: 1fr; gap: 2.5rem; }
-      .nosotros-foto  { aspect-ratio: 3/2; }
-
+      .tool-card { grid-template-columns: 1fr; }
+      .tool-left { border-right: none; border-bottom: 1px solid var(--crema-dk); }
+      .tool-body { opacity: 1; }
+      .pasos-inline { flex-direction: column; }
+      .paso-mini { border-right: none; border-bottom: 1px solid var(--crema-dk); }
+      .paso-mini:last-child { border-bottom: none; }
+      .entregables-grid { grid-template-columns: 1fr 1fr; }
+      .caso-item { grid-template-columns: 1fr; gap: 2rem; }
+      .video-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .porque-inner { grid-template-columns: 1fr; gap: 3rem; }
       .contacto-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
     }
-
     @media (max-width: 600px) {
-      .tools-grid         { grid-template-columns: 1fr; }
-      .metodologia-steps  { grid-template-columns: 1fr; }
-      .caso-stats         { flex-wrap: wrap; gap: 1rem; }
-      footer              { flex-direction: column; align-items: flex-start; }
+      .entregables-grid { grid-template-columns: 1fr; }
+      .porque-fotos { grid-template-columns: 1fr; }
+      .caso-stats { flex-wrap: wrap; gap: 1rem; }
+      .footer-inner { grid-template-columns: 1fr; }
     }
 
-    /* =============================================
-       ANIMACIONES DE ENTRADA (suaves)
-    ============================================= */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
 
-  <!-- ==================== NAV ==================== -->
+  <!-- NAV -->
   <nav id="navbar">
     <a href="#inicio" class="nav-logo">
-  <img src="./imagenes/logo2.png" alt="" style="height:70px;" />
-  </a>
+      <img src="./imagenes/logo2.png" alt="Lenga" style="height:70px;" />
+    </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#soluciones">Soluciones</a></li>
+      <li><a href="#entregables">Entregables</a></li>
       <li><a href="#casos">Casos de uso</a></li>
-      <li><a href="#metodologia">Metodología</a></li>
       <li><a href="#nosotros">Nosotros</a></li>
       <li><a href="#contacto" class="nav-cta">Hablemos</a></li>
     </ul>
@@ -821,22 +260,15 @@
     </button>
   </nav>
 
-  <!-- ==================== HERO ==================== -->
+  <!-- HERO -->
   <section class="hero" id="inicio">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="container">
       <div class="hero-content">
         <p class="label">Análisis territorial · Visualización geoespacial</p>
-        <h1>
-          La tierra habla.<br />
-          <em>Te ayudamos a recolectar, interpretar y visualizar</em><br />
-          lo que dice.
-        </h1>
-        <p>
-          Convertimos lo que hacés en el territorio en evidencia que convence a tu público,
-          mueve decisiones y multiplica tu impacto.
-        </p>
+        <h1>La tierra habla.<br /><em>Te ayudamos a recolectar, interpretar y visualizar</em><br />lo que dice.</h1>
+        <p>Convertimos lo que hacés en el territorio en evidencia que convence a tu público, mueve decisiones y multiplica tu impacto.</p>
         <div class="hero-actions">
           <a href="#contacto" class="btn btn-primary">Hablemos de tu proyecto →</a>
           <a href="#casos" class="btn btn-ghost">Ver casos de uso</a>
@@ -845,308 +277,218 @@
     </div>
   </section>
 
-  <!-- ==================== PROPUESTA DE VALOR ==================== -->
+  <!-- DIFERENCIALES -->
   <section class="valor section" id="propuesta">
     <div class="container">
       <div class="valor-intro">
-        <h2>
-          Hacemos mapas bonitos, si.<br />
-          Pero nuestro objetivo es crear <em>herramientas</em><br />
-          que fortalezcan decisiones.
-        </h2>
-        <p>
-          Trabajamos con empresas y organizaciones que necesitan
-          demostrar su impacto a sus comunidades, sus aliados y sus financiadores.
-          Combinamos análisis espacial, experiencia de campo y metodología
-          rigurosa para que cada entrega sea una herramienta, no solo una imagen.
-        </p>
+        <h2>Hacemos mapas bonitos, sí.<br />Pero nuestro objetivo es crear <em>herramientas</em><br />que fortalezcan decisiones.</h2>
+        <p>Trabajamos con ONGs, proyectos de conservación y organizaciones que necesitan demostrar su impacto. Combinamos análisis espacial, experiencia de campo y metodología rigurosa para que cada entrega sea una herramienta, no solo una imagen.</p>
       </div>
       <div class="valor-grid">
         <div class="valor-item">
           <div class="valor-num">01</div>
-          <h3>Entendemos el territorio</h3>
-          <p>No solo analizamos datos: leemos el paisaje. Combinamos sensores remotos,
-             trabajo de campo y contexto local para resultados con sentido real.</p>
+          <h3>La capacidad se queda en la organización</h3>
+          <p>No construimos dependencia. Cada entrega está documentada para que tu equipo pueda operarla y evolucionarla solo. Si volvés a consultarnos, es porque querés crecer — no porque no podés funcionar sin nosotros.</p>
         </div>
         <div class="valor-item">
           <div class="valor-num">02</div>
-          <h3>Hablamos con tus audiencias</h3>
-          <p>Sabemos que un mapa para un agricultor no es el mismo que para un financiador
-             internacional. Diseñamos cada entrega para la persona que la va a usar.</p>
+          <h3>Productos basados en el diagnóstico de necesidades</h3>
+          <p>No hay un producto estándar. Antes de diseñar cualquier herramienta hacemos un assessment de tus datos, tu equipo y tus objetivos — lo que entregamos surge de ese diagnóstico, no al revés.</p>
         </div>
         <div class="valor-item">
           <div class="valor-num">03</div>
-          <h3>Trabajamos con vos, no para vos</h3>
-          <p>Proceso colaborativo desde el día uno. Alineamos objetivos, metodología
-             y alcance antes de tocar un solo dato. Sin sorpresas.</p>
+          <h3>Experiencia desde el territorio</h3>
+          <p>No analizamos desde un escritorio. Combinamos sensores remotos con trabajo de campo real y contexto local para que los resultados tengan sentido donde realmente importa.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== SOLUCIONES ==================== -->
+  <!-- SOLUCIONES -->
   <section class="soluciones section" id="soluciones">
     <div class="container">
       <div class="section-header">
         <p class="label">Lo que hacemos</p>
         <h2>Nuestras soluciones</h2>
+        <p style="margin-top:1rem;max-width:640px;color:var(--gris);font-size:.97rem;line-height:1.75;font-weight:300;">Cada proyecto es distinto. Las soluciones se pueden contratar de forma independiente o como secuencia. En todos los casos, lo que entregamos se queda con vos.</p>
       </div>
       <div class="tools-grid">
-
         <div class="tool-card">
-          <!-- IMAGEN: cambiá el style inline por: style="background-image:url('imagenes/sensores.jpg');background-size:cover;background-position:center" -->
-          <div class="tool-img sensores">
-            <span class="tool-img-label">Sensores remotos</span>
-          </div>
-          <div class="tool-body">
-            <h3>Sensores remotos</h3>
-            <p>Observación de la Tierra mediante teledetección. Imágenes satelitales convertidas
-               en conocimiento aplicable sobre cobertura terrestre, vegetación y clima.</p>
-          </div>
+          <div class="tool-left"><span class="tool-num">01</span><span class="tool-name">Diagnóstico de punto de partida</span></div>
+          <div class="tool-body"><p>Antes de medir, hay que saber qué tenés. Evaluamos el estado de tus datos, tu capacidad de registro y tus objetivos — y te decimos qué construir primero para no invertir en lo equivocado.</p></div>
         </div>
-
         <div class="tool-card">
-          <div class="tool-img dashboards">
-            <span class="tool-img-label">Dashboards geográficos</span>
-          </div>
-          <div class="tool-body">
-            <h3>Dashboards geográficos</h3>
-            <p>Visualizaciones interactivas que permiten explorar datos territoriales de forma
-               clara y potente, para tomar decisiones o presentar ante aliados.</p>
-          </div>
+          <div class="tool-left"><span class="tool-num">02</span><span class="tool-name">Marco de medición de impacto</span></div>
+          <div class="tool-body"><p>Definimos con vos qué significa el éxito y cómo demostrarlo. Un sistema de indicadores claro, co-construido con tu equipo, que conecta cada actividad con el cambio que querés generar.</p></div>
         </div>
-
         <div class="tool-card">
-          <div class="tool-img mapas">
-            <span class="tool-img-label">Mapas vectoriales y raster</span>
-          </div>
-          <div class="tool-body">
-            <h3>Mapas vectoriales y raster</h3>
-            <p>Representación precisa de territorios, infraestructuras y recursos.
-               Análisis espaciales adaptados a cada proyecto y contexto.</p>
-          </div>
+          <div class="tool-left"><span class="tool-num">03</span><span class="tool-name">Evidencia territorial</span></div>
+          <div class="tool-body"><p>Mostramos dónde y cómo cambia el territorio a lo largo del tiempo. Un recurso visual y riguroso que hace visible lo que antes solo podía describirse con palabras.</p></div>
         </div>
-
         <div class="tool-card">
-          <div class="tool-img encuestas">
-            <span class="tool-img-label">Diseño de encuestas</span>
-          </div>
-          <div class="tool-body">
-            <h3>Diseño de encuestas</h3>
-            <p>Metodologías personalizadas para recopilar información confiable y relevante.
-               Entender realidades locales y fortalecer la toma de decisiones.</p>
-          </div>
+          <div class="tool-left"><span class="tool-num">04</span><span class="tool-name">Recolección de datos en campo</span></div>
+          <div class="tool-body"><p>Diseñamos los instrumentos, protocolos y flujos para que tu equipo recolecte datos de forma confiable y consistente. Sin depender de consultores externos cada vez que salís a campo.</p></div>
         </div>
-
         <div class="tool-card">
-          <div class="tool-img reportes">
-            <span class="tool-img-label">Reportes de impacto</span>
-          </div>
-          <div class="tool-body">
-            <h3>Reportes de impacto</h3>
-            <p>Análisis y síntesis de resultados para mostrar el impacto real de tus proyectos.
-               Útiles para rendir cuentas, evaluar logros y respaldar nuevos fondos.</p>
-          </div>
+          <div class="tool-left"><span class="tool-num">05</span><span class="tool-name">Narrativa de impacto para financiadores</span></div>
+          <div class="tool-body"><p>Transformamos tus datos en un reporte claro, honesto y visualmente potente. Pensado para quien tiene que decidir si seguir financiando tu trabajo — y que entienda por qué vale la pena.</p></div>
         </div>
-
         <div class="tool-card">
-          <div class="tool-img visualiz">
-            <span class="tool-img-label">Visualización de datos</span>
-          </div>
-          <div class="tool-body">
-            <h3>Visualización de datos</h3>
-            <p>Presentación clara de información compleja mediante gráficos, mapas e indicadores
-               que muestran el impacto real de tu proyecto de forma medible.</p>
-          </div>
+          <div class="tool-left"><span class="tool-num">06</span><span class="tool-name">Visualización interactiva</span></div>
+          <div class="tool-body"><p>Una herramienta que permite explorar tus datos, cruzar variables y comunicar resultados de forma dinámica. Para presentar en reuniones, eventos o publicar en tu propio sitio.</p></div>
         </div>
+      </div>
 
+      <div style="margin-top:2.5rem;padding:1.5rem 2rem;background:var(--blanco);border-left:3px solid var(--tierra);border-radius:0 8px 8px 0;">
+        <p style="font-family:var(--font-display);font-size:1.05rem;font-style:italic;color:var(--tierra);margin-bottom:.4rem;">"La capacidad se queda en la organización."</p>
+        <p style="font-size:.88rem;color:var(--gris);line-height:1.7;font-weight:300;">Lenga no construye dependencia. Cada entrega está documentada y diseñada para que tu equipo pueda operarla y evolucionar de forma autónoma.</p>
+      </div>
+
+      <p class="label" style="margin-top:2.5rem;margin-bottom:.75rem;">Así trabajamos</p>
+      <div class="pasos-inline">
+        <div class="paso-mini"><div class="paso-mini-num">01</div><h4>Onboarding</h4><p>Alineamos objetivos, alcance y tiempos desde el primer día.</p></div>
+        <div class="paso-mini"><div class="paso-mini-num">02</div><h4>Método</h4><p>Validamos la metodología y el plan de trabajo juntos.</p></div>
+        <div class="paso-mini"><div class="paso-mini-num">03</div><h4>Localización</h4><p>Contextualizamos y limpiamos los datos del territorio.</p></div>
+        <div class="paso-mini"><div class="paso-mini-num">04</div><h4>Análisis</h4><p>Análisis riguroso con soporte académico y benchmarking.</p></div>
+        <div class="paso-mini"><div class="paso-mini-num">05</div><h4>Resultados</h4><p>Entregamos herramientas diseñadas para tu audiencia.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== CASOS DE USO ==================== -->
+  <!-- ENTREGABLES -->
+  <section class="entregables" id="entregables">
+    <div class="container">
+      <div class="entregables-header">
+        <p class="label">Sin proceso largo</p>
+        <h2>¿Ya tenés los datos?<br />Solo necesitás el entregable.</h2>
+        <p>Trabajamos también por proyecto puntual. Un mapa, un dashboard, un reporte — sin consultoría completa, sin tiempos largos.</p>
+      </div>
+      <div class="entregables-grid">
+        <div class="entregable-card mapa">
+          <div class="entregable-base"><span class="entregable-tiempo">Desde 1 semana</span><h3>Mapa</h3></div>
+          <div class="entregable-hover"><span class="entregable-tiempo">Desde 1 semana</span><h3>Mapa</h3><p>Tu territorio, tus datos, tu historia. Un mapa listo para presentar, publicar o entregar a financiadores — diseñado para que se entienda a primera vista.</p></div>
+        </div>
+        <div class="entregable-card dashboard">
+          <div class="entregable-base"><span class="entregable-tiempo">Desde 2 semanas</span><h3>Dashboard</h3></div>
+          <div class="entregable-hover"><span class="entregable-tiempo">Desde 2 semanas</span><h3>Dashboard</h3><p>Tus datos, explorables e interactivos. Para reuniones internas, eventos internacionales o directamente embebido en tu sitio web.</p></div>
+        </div>
+        <div class="entregable-card reporte">
+          <div class="entregable-base"><span class="entregable-tiempo">Desde 1 semana</span><h3>Reporte de impacto</h3></div>
+          <div class="entregable-hover"><span class="entregable-tiempo">Desde 1 semana</span><h3>Reporte de impacto</h3><p>Tus resultados en un documento claro, visual y honesto. Pensado para el financiador que necesita entender qué pasó — y por qué vale la pena seguir.</p></div>
+        </div>
+      </div>
+      <div class="entregables-cta"><a href="#contacto" class="btn-crema">Contame qué necesitás →</a></div>
+    </div>
+  </section>
+
+  <!-- CASOS -->
   <section class="casos section" id="casos">
     <div class="container">
       <div class="section-header">
         <p class="label">En acción</p>
         <h2>Casos de uso</h2>
       </div>
-
-      <!-- CASO 1 -->
       <div class="caso-item">
         <div class="caso-img">
-           <iframe width="1500" height="900" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+          <iframe width="100%" height="100%" frameborder="0" scrolling="no"
             src="https://aasd.maps.arcgis.com/apps/dashboards/28a5dedccaaf4178867d14c320a2696e"></iframe>
         </div>
         <div class="caso-content">
           <span class="tag">Café de especialidad · Bolivia</span>
           <h3>Café Orígenes & Yungas Coffee</h3>
-          <p>
-            En el mercado de commodities es clave destacarse. La trazabilidad del café de
-            especialidad es difícil de probar. Lenga desarrolló un dashboard geográfico
-            innovador que fue presentado en conferencias internacionales como la SCA.
-          </p>
+          <p>En el mercado de commodities es clave destacarse. La trazabilidad del café de especialidad es difícil de probar. Lenga desarrolló un dashboard geográfico innovador que fue presentado en conferencias internacionales como la SCA.</p>
           <div class="caso-stats">
-            <div class="stat">
-              <div class="stat-num">95</div>
-              <div class="stat-label">Agricultores</div>
-            </div>
-            <div class="stat">
-              <div class="stat-num">140.5</div>
-              <div class="stat-label">Hectáreas sostenibles</div>
-            </div>
-            <div class="stat">
-              <div class="stat-num">230.4</div>
-              <div class="stat-label">Ha área total</div>
-            </div>
+            <div class="stat"><div class="stat-num">95</div><div class="stat-label">Agricultores</div></div>
+            <div class="stat"><div class="stat-num">140.5</div><div class="stat-label">Hectáreas sostenibles</div></div>
+            <div class="stat"><div class="stat-num">230.4</div><div class="stat-label">Ha área total</div></div>
           </div>
-          <!-- Podés agregar un link al dashboard si tenés uno público -->
-          <!-- <a href="#" class="btn-outline">Ver dashboard →</a> -->
         </div>
       </div>
-
-      <!-- CASO 2 — completá con tu segundo caso -->
       <div class="caso-item reverse fade-up">
         <div class="caso-content">
           <span class="tag">Conservación · [País]</span>
           <h3>Tu segundo caso de uso</h3>
-          <p>
-            Describí acá brevemente el proyecto: cuál era el problema, qué hizo Lenga
-            y cuál fue el resultado concreto para el cliente.
-          </p>
+          <p>Describí acá brevemente el proyecto: cuál era el problema, qué hizo Lenga y cuál fue el resultado concreto para el cliente.</p>
           <div class="caso-stats">
-            <div class="stat">
-              <div class="stat-num">—</div>
-              <div class="stat-label">Resultado clave</div>
-            </div>
-            <div class="stat">
-              <div class="stat-num">—</div>
-              <div class="stat-label">Otro indicador</div>
-            </div>
+            <div class="stat"><div class="stat-num">—</div><div class="stat-label">Resultado clave</div></div>
+            <div class="stat"><div class="stat-num">—</div><div class="stat-label">Otro indicador</div></div>
           </div>
         </div>
-        <div class="caso-img">
-          📍 Imagen: caso 2
-        </div>
+        <div class="caso-img">📍 Imagen: caso 2</div>
       </div>
-
     </div>
   </section>
 
-  <!-- ==================== TESTIMONIO ==================== -->
+  <!-- TESTIMONIO -->
   <section class="testimonio">
     <div class="container">
       <blockquote>
-        <!--
-          IMPORTANTE: reemplazá esto con una cita real de algún cliente.
-          Una sola frase auténtica vale más que todo el texto de descripción.
-        -->
-        "Lenga nos ayudó a posicionarnos estratégicamente como líderes en trazabilidad y 
-         presentarle a nuestros financiadores por primera vez evidencia espacial real."
+        "Lenga nos ayudó a posicionarnos estratégicamente como líderes en trazabilidad y presentarle a nuestros financiadores por primera vez evidencia espacial real."
         <cite>— Luke Agness, Manager at Yungas · United States</cite>
       </blockquote>
     </div>
   </section>
 
-  <!-- ==================== METODOLOGÍA ==================== -->
-  <section class="metodologia section" id="metodologia">
+  <!-- NOSOTROS / VIDEO -->
+  <section class="nosotros-video" id="nosotros">
     <div class="container">
-      <div class="section-header">
-        <p class="label">Cómo trabajamos</p>
-        <h2>Metodología y enfoque</h2>
-      </div>
-      <div class="metodologia-steps">
-        <div class="step">
-          <div class="step-num">01</div>
-          <h3>Onboarding</h3>
-          <p>Definimos el área de trabajo, la muestra, alineamos objetivos y acordamos alcance y tiempos.</p>
+      <div class="video-inner">
+        <div class="video-wrap">
+          <!-- Reemplazá con tu URL de YouTube o Vimeo: -->
+          <!-- YouTube: https://www.youtube.com/embed/TU_VIDEO_ID -->
+          <!-- Vimeo:   https://player.vimeo.com/video/TU_VIDEO_ID -->
+          <iframe src="https://www.youtube.com/embed/TU_VIDEO_ID" allowfullscreen></iframe>
         </div>
-        <div class="step">
-          <div class="step-num">02</div>
-          <h3>Método</h3>
-          <p>Validamos la metodología y viabilidad. Compartimos el plan que combina investigación, campo y análisis geoespacial.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">03</div>
-          <h3>Localización</h3>
-          <p>Contextualizamos el área de interés. Realizamos limpieza y organización de los datos.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">04</div>
-          <h3>Análisis</h3>
-          <p>Análisis de datos con soporte de literatura académica y benchmarking frente a proyectos similares.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">05</div>
-          <h3>Resultados</h3>
-          <p>Entregamos visualizaciones, reportes y herramientas diseñadas para tu audiencia específica.</p>
+        <div class="video-text">
+          <span class="label">Nuestra filosofía</span>
+          <p>No se trata solo de mapas o datos: se trata de entender un territorio, de leerlo como si fuera un lenguaje vivo. ¿Tu proyecto necesita ver lo que otros no ven, conectar información dispersa o transformar decisiones en impacto real? Ahí es donde entramos.</p>
+          <p>En Lenga no entregamos "productos terminados": trabajamos con vos para descubrir qué historia cuenta tu tierra, tu comunidad o tu iniciativa. Combinamos análisis espacial, experiencia en campo y una mirada humana para que cada mapa sea una herramienta, no solo una imagen bonita.</p>
+          <p>Lo especial no es la tecnología — aunque la usamos bien — sino la forma en que pensamos: colaborativa, flexible y con los pies en la tierra.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== NOSOTROS ==================== -->
-  <section class="nosotros section" id="nosotros">
+  <!-- NUESTRO PORQUÉ -->
+  <section class="porque section">
     <div class="container">
-      <div class="nosotros-grid">
-        <div class="nosotros-foto">
-          <!--
-            IMAGEN: reemplazá con tu foto.
-            <img src="imagenes/santiago.jpg" alt="Santiago" style="width:100%;height:100%;object-fit:cover;" />
-          -->
-          📍 Tu foto acá
-        </div>
-        <div class="nosotros-content">
-          <p class="label">Quién está detrás</p>
-          <!--
-            Completá con tu nombre real, formación y trayectoria.
-            Ser unipersonal es un activo: los clientes contratan a una persona de confianza.
-          -->
-          <h2>Hola, soy Santiago.<br />Fundador de Lenga.</h2>
-          <p>
-            [Tu descripción personal acá — 2-3 párrafos. Contá tu formación, cuántos años
-            trabajando en análisis territorial, con qué tipo de proyectos y organizaciones
-            trabajaste. Qué te llevó a crear Lenga.]
-          </p>
-          <p>
-            Trabajo con organizaciones en toda Latinoamérica que necesitan demostrar
-            que su trabajo en el territorio tiene impacto real. Me especializo en traducir
-            datos complejos en herramientas concretas para comunidades, aliados y financiadores.
-          </p>
-          <div class="nosotros-tags">
-            <span class="tag">GIS & Análisis espacial</span>
-            <span class="tag">Sensores remotos</span>
-            <span class="tag">Diseño de encuestas</span>
-            <span class="tag">Reportes de impacto</span>
-            <span class="tag">Latinoamérica</span>
-          </div>
+      <div class="porque-inner">
+        <div class="porque-img-placeholder">📍 Foto bosque de lenga</div>
+        <div class="porque-text">
+          <span class="label">Nuestro porqué</span>
+          <h2>La lenga es un árbol<br /><em>resiliente y amenazado.</em></h2>
+          <p>La lenga (<em>Nothofagus pumilio</em>) es uno de los árboles más antiguos y emblemáticos de la Patagonia. Crece en las alturas frías de la cordillera y cada otoño tiñe las laderas de rojos y dorados, dando refugio a una biodiversidad única.</p>
+          <p>Investigaciones recientes muestran que el aumento de temperatura amenaza su capacidad de regeneración. Para fines de este siglo, muchas zonas podrían volverse demasiado cálidas para que la lenga sobreviva sin ayuda.</p>
+          <p>En Lenga Land Lab nos inspiramos en este árbol, pero también en la urgencia de proteger ecosistemas frágiles. Creemos que la ciencia, la geografía y la información bien usada son herramientas poderosas para actuar a tiempo.</p>
         </div>
       </div>
+
+      <div class="porque-stat">
+        <div class="porque-stat-num">Más del 75%</div>
+        <p>de la superficie terrestre ya fue alterada por la actividad humana.<br />Necesitamos cambiar la forma en que usamos el suelo. En Lenga apoyamos a quienes están revirtiendo malas prácticas, apostando por formas innovadoras de trabajar la tierra, restaurar ecosistemas y proyectar un mundo más justo.</p>
+      </div>
+
+      <div class="porque-fotos">
+        <div class="porque-foto">📍 Comunidad</div>
+        <div class="porque-foto">📍 Paisaje</div>
+        <div class="porque-foto">📍 Cultivo</div>
+      </div>
+
+      <p class="porque-frase">Creamos comunidad, desde el Sur, para el mundo.</p>
     </div>
   </section>
 
-  <!-- ==================== CONTACTO ==================== -->
+  <!-- CONTACTO -->
   <section class="contacto section" id="contacto">
     <div class="container">
       <div class="contacto-inner">
         <div class="contacto-left">
           <p class="label">Hablemos</p>
           <h2>¿Tenés un proyecto<br />en mente? <em>Contame.</em></h2>
-          <p>
-            No hace falta que tengas todo claro todavía. Contame en qué estás trabajando,
-            cuál es el desafío, y vemos juntos si podemos ayudarte.
-          </p>
+          <p>No hace falta que tengas todo claro todavía. Contame en qué estás trabajando, cuál es el desafío, y vemos juntos si podemos ayudarte.</p>
           <div class="contacto-direct">
-            <!--
-              Reemplazá con tu mail y número reales.
-              Para WhatsApp el formato es: https://wa.me/549XXXXXXXXXX (sin espacios ni guiones)
-            -->
-            <a href="/cdn-cgi/l/hola@lenga.lat" class="contacto-link">
-              ✉ <span class="__cf_email__" data-cfemail="26554748524f474149664a43484147084a4752">[email&#160;protected]</span>
-            </a>
-            <a href="https://wa.me/549XXXXXXXXXX" class="contacto-link" target="_blank">
-              💬 WhatsApp directo →
-            </a>
+            <a href="mailto:hola@lenga.lat" class="contacto-link">✉ hola@lenga.lat</a>
+            <a href="https://wa.me/549XXXXXXXXXX" class="contacto-link" target="_blank">💬 WhatsApp directo →</a>
           </div>
         </div>
         <form class="form" id="contactForm">
@@ -1175,74 +517,80 @@
             <textarea id="mensaje" name="mensaje" placeholder="Contame brevemente tu proyecto o el desafío que tenés..." required></textarea>
           </div>
           <button type="submit" class="btn btn-primary">Enviar mensaje →</button>
-          <p id="formMsg" style="font-size:.85rem;color:var(--verde);display:none;margin-top:.5rem;">
-            ¡Mensaje enviado! Te respondo a la brevedad.
-          </p>
+          <p id="formMsg" style="font-size:.85rem;color:var(--verde);display:none;margin-top:.5rem;">¡Mensaje enviado! Te respondo a la brevedad.</p>
         </form>
       </div>
     </div>
   </section>
 
-  <!-- ==================== FOOTER ==================== -->
+  <!-- FOOTER -->
   <footer>
-    <span class="footer-logo">Lenga<span>.</span></span>
-    <p>© 2025 Lenga · Análisis territorial para proyectos de impacto</p>
-    <ul class="footer-links">
-      <li><a href="#soluciones">Soluciones</a></li>
-      <li><a href="#casos">Casos</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-    </ul>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-logo">Lenga<span>.</span></div>
+        <div class="footer-tagline">Desde el Sur.</div>
+        <div class="footer-contact">
+          San Carlos de Bariloche<br />
+          <a href="mailto:hola@lenga.lat">hola@lenga.lat</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Soluciones</h4>
+        <ul>
+          <li><a href="#soluciones">Cómo entender tu impacto</a></li>
+          <li><a href="#soluciones">Herramientas</a></li>
+          <li><a href="#casos">Casos de uso</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Metodología</h4>
+        <ul>
+          <li><a href="#soluciones">Evidencias que inspiran</a></li>
+          <li><a href="#soluciones">Metodología y enfoque</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Nosotros</h4>
+        <ul>
+          <li><a href="#nosotros">Nuestro porqué</a></li>
+          <li><a href="#nosotros">Equipo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Lenga Land Lab · Análisis territorial para proyectos de impacto</span>
+      <div class="footer-social">
+        <a href="https://instagram.com/lengalandlab" target="_blank" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://linkedin.com/company/lengalandlab" target="_blank" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+      </div>
+    </div>
   </footer>
 
-  <!-- ==================== JS ==================== -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // --- Navbar scroll shadow ---
+  <script>
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 40);
-    });
-
-    // --- Hamburger mobile ---
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); });
     const hamburger = document.getElementById('hamburger');
     const navLinks  = document.getElementById('navLinks');
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-    });
-    // Cerrar menú al hacer click en un link
-    navLinks.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => navLinks.classList.remove('open'));
-    });
-
-    // --- Animaciones fade-up con IntersectionObserver ---
+    hamburger.addEventListener('click', () => { navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('a').forEach(a => { a.addEventListener('click', () => navLinks.classList.remove('open')); });
     const fadeEls = document.querySelectorAll('.fade-up');
     if (fadeEls.length > 0) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, i) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => entry.target.classList.add('visible'), i * 80);
-            observer.unobserve(entry.target);
-          }
+          if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 80); observer.unobserve(entry.target); }
         });
       }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
       fadeEls.forEach(el => observer.observe(el));
     }
-
-    // --- Formulario (demo — sin backend todavía) ---
-    // Para conectar con un backend real, reemplazá el fetch con tu endpoint.
-    // Opciones gratuitas: Formspree, Web3Forms, EmailJS.
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      // Demo: solo muestra el mensaje de confirmación.
-      // Para activarlo de verdad, mirá la sección de comentarios abajo.
       document.getElementById('formMsg').style.display = 'block';
       this.reset();
-
-      /*
-        PARA ACTIVAR EL FORMULARIO REAL:
-        1. Creá una cuenta gratis en https://formspree.io
-        2. Creá un formulario, te dan un endpoint tipo: https://formspree.io/f/XXXXXXXX
-        3. Reemplazá el bloque de abajo:
-
-        const data = new FormData(this);
-        fetch('https://formspree.io/f/XXXXXXXX', {
-          method: 'POST',
+    });
+  </script>
+</body>
+</html>
