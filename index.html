@@ -65,43 +65,61 @@
     .btn-ghost { background: rgba(255,255,255,.12); color: var(--blanco); border: 1px solid rgba(255,255,255,.3); backdrop-filter: blur(6px); }
     .btn-ghost:hover { background: rgba(255,255,255,.2); }
 
-    /* DIFERENCIALES */
+    /* DIFERENCIALES — cards con hover overlay igual a entregables */
     .valor { background: var(--blanco); }
     .valor-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 4rem; }
     .valor-intro h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 2.8vw, 2.4rem); line-height: 1.2; color: var(--marron); font-weight: 600; letter-spacing: .02em; }
     .valor-intro h2 em { color: var(--tierra); font-style: italic; }
     .valor-intro p { color: var(--gris); font-size: .97rem; line-height: 1.8; font-weight: 300; }
-    .valor-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--crema-dk); border-radius: 12px; overflow: hidden; }
-    .valor-item { padding: 2.5rem 2rem; border-right: 1px solid var(--crema-dk); }
-    .valor-item:last-child { border-right: none; }
-    .valor-num { font-family: var(--font-display); font-size: 2.8rem; color: var(--crema-dk); font-weight: 600; margin-bottom: .75rem; }
-    .valor-item h3 { font-family: var(--font-sub); font-size: 1rem; font-weight: 700; color: var(--tierra); margin-bottom: .75rem; letter-spacing: .04em; }
-    .valor-item p { font-size: .9rem; color: var(--gris); line-height: 1.7; }
+    .valor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .valor-item {
+      border-radius: 14px; overflow: hidden; position: relative;
+      aspect-ratio: 4/3;
+      background: var(--crema);
+      border: 1px solid var(--crema-dk);
+    }
+    /* capa base — número + título siempre visible */
+    .valor-base {
+      position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1.75rem;
+      background: linear-gradient(to top, rgba(43,22,12,.55) 0%, transparent 60%);
+      transition: opacity .35s ease;
+    }
+    .valor-item:hover .valor-base { opacity: 0; }
+    .valor-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 600; color: rgba(244,231,220,.5); line-height: 1; margin-bottom: .5rem; }
+    .valor-base h3 { font-family: var(--font-sub); font-size: 1rem; font-weight: 700; color: var(--blanco); letter-spacing: .03em; line-height: 1.3; }
+    /* capa hover — descripción */
+    .valor-hover {
+      position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;
+      padding: 1.75rem; background: rgba(128,59,40,.92); opacity: 0; transition: opacity .35s ease;
+    }
+    .valor-item:hover .valor-hover { opacity: 1; }
+    .valor-hover h3 { font-family: var(--font-sub); font-size: .95rem; font-weight: 700; color: var(--crema); margin-bottom: .75rem; letter-spacing: .03em; }
+    .valor-hover p { font-size: .9rem; color: rgba(244,231,220,.8); line-height: 1.7; font-weight: 300; }
 
     /* SOLUCIONES — filas hover horizontal */
     .soluciones { background: var(--crema); }
     .section-header { margin-bottom: 3.5rem; }
     .section-header h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); margin-top: .75rem; color: var(--marron); font-weight: 600; letter-spacing: .02em; }
     .tools-grid { display: flex; flex-direction: column; border: 1px solid var(--crema-dk); border-radius: 14px; overflow: hidden; }
-    .tool-card { display: grid; grid-template-columns: 42% 58%; align-items: stretch; background: var(--blanco); border-bottom: 1px solid var(--crema-dk); transition: background .3s; min-height: 72px; }
+    .tool-card {
+      display: grid; grid-template-columns: 42% 58%;
+      align-items: stretch; background: var(--blanco);
+      border-bottom: 1px solid var(--crema-dk); min-height: 72px;
+      position: relative; overflow: hidden;
+    }
     .tool-card:last-child { border-bottom: none; }
-    .tool-card:hover { background: var(--crema); }
-    .tool-left { display: flex; align-items: center; gap: 1.25rem; padding: 1.25rem 1.75rem; border-right: 1px solid var(--crema-dk); }
+    /* capa base izquierda — siempre visible */
+    .tool-left { display: flex; align-items: center; gap: 1.25rem; padding: 1.25rem 1.75rem; border-right: 1px solid var(--crema-dk); transition: background .3s; z-index: 1; }
+    .tool-card:hover .tool-left { background: var(--crema); }
     .tool-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; color: var(--crema-dk); line-height: 1; min-width: 1.8rem; transition: color .3s; }
     .tool-card:hover .tool-num { color: var(--tierra-lt); }
     .tool-name { font-family: var(--font-display); font-size: clamp(1rem, 1.3vw, 1.15rem); font-weight: 600; color: var(--marron); line-height: 1.25; transition: color .3s; }
     .tool-card:hover .tool-name { color: var(--tierra); }
-    .tool-body { padding: 1.25rem 1.75rem; display: flex; align-items: center; opacity: 0; transition: opacity .4s ease; }
-    .tool-card:hover .tool-body { opacity: 1; }
+    /* capa derecha — descripción con fade */
+    .tool-body { padding: 1.25rem 1.75rem; display: flex; align-items: center; opacity: 0; transition: opacity .4s ease, background .3s; background: var(--blanco); }
+    .tool-card:hover .tool-body { opacity: 1; background: var(--crema); }
     .tool-body p { font-size: .88rem; color: var(--gris); line-height: 1.65; font-weight: 300; }
-
-    /* pasos inline */
-    .pasos-inline { display: flex; border: 1px solid var(--crema-dk); border-radius: 10px; overflow: hidden; background: var(--blanco); margin-top: .75rem; }
-    .paso-mini { flex: 1; padding: 1.1rem 1rem; border-right: 1px solid var(--crema-dk); }
-    .paso-mini:last-child { border-right: none; }
-    .paso-mini-num { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; color: var(--crema-dk); line-height: 1; margin-bottom: .3rem; }
-    .paso-mini h4 { font-family: var(--font-sub); font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--tierra); margin-bottom: .25rem; }
-    .paso-mini p { font-size: .76rem; color: var(--gris); line-height: 1.5; }
 
     /* ENTREGABLES */
     .entregables { background: var(--marron); color: var(--crema); padding: clamp(4rem, 7vw, 6rem) 0; }
@@ -152,7 +170,7 @@
     .video-wrap { border-radius: 12px; overflow: hidden; aspect-ratio: 16/9; background: rgba(255,255,255,.05); }
     .video-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
     .video-text .label { color: rgba(244,231,220,.45); margin-bottom: 1rem; display: block; }
-    .video-text p { font-size: 1.05rem; color: rgba(244,231,220,.8); line-height: 1.85; font-weight: 300; font-family: var(--font-display); font-style: italic; }
+    .video-text p { font-size: 1.05rem; color: rgba(244,231,220,.8); line-height: 1.85; font-weight: 400; font-family: var(--font-display); font-style: normal; }
     .video-text p + p { margin-top: 1.25rem; }
 
     /* NUESTRO PORQUÉ */
@@ -217,12 +235,10 @@
       .valor-grid { grid-template-columns: 1fr; }
       .valor-item { border-right: none; border-bottom: 1px solid var(--crema-dk); }
       .valor-item:last-child { border-bottom: none; }
+      .valor-grid { grid-template-columns: 1fr; }
       .tool-card { grid-template-columns: 1fr; }
       .tool-left { border-right: none; border-bottom: 1px solid var(--crema-dk); }
       .tool-body { opacity: 1; }
-      .pasos-inline { flex-direction: column; }
-      .paso-mini { border-right: none; border-bottom: 1px solid var(--crema-dk); }
-      .paso-mini:last-child { border-bottom: none; }
       .entregables-grid { grid-template-columns: 1fr 1fr; }
       .caso-item { grid-template-columns: 1fr; gap: 2rem; }
       .video-inner { grid-template-columns: 1fr; gap: 3rem; }
@@ -286,19 +302,34 @@
       </div>
       <div class="valor-grid">
         <div class="valor-item">
-          <div class="valor-num">01</div>
-          <h3>La capacidad se queda en la organización</h3>
-          <p>No construimos dependencia. Cada entrega está documentada para que tu equipo pueda operarla y evolucionarla solo. Si volvés a consultarnos, es porque querés crecer — no porque no podés funcionar sin nosotros.</p>
+          <div class="valor-base">
+            <div class="valor-num">01</div>
+            <h3>La capacidad se queda en la organización</h3>
+          </div>
+          <div class="valor-hover">
+            <h3>La capacidad se queda en la organización</h3>
+            <p>No construimos dependencia. Cada entrega está documentada para que tu equipo pueda operarla y evolucionarla solo. Si volvés a consultarnos, es porque querés crecer — no porque no podés funcionar sin nosotros.</p>
+          </div>
         </div>
         <div class="valor-item">
-          <div class="valor-num">02</div>
-          <h3>Productos basados en el diagnóstico de necesidades</h3>
-          <p>No hay un producto estándar. Antes de diseñar cualquier herramienta hacemos un assessment de tus datos, tu equipo y tus objetivos — lo que entregamos surge de ese diagnóstico, no al revés.</p>
+          <div class="valor-base">
+            <div class="valor-num">02</div>
+            <h3>Productos basados en el diagnóstico de necesidades</h3>
+          </div>
+          <div class="valor-hover">
+            <h3>Productos basados en el diagnóstico de necesidades</h3>
+            <p>No hay un producto estándar. Antes de diseñar cualquier herramienta hacemos un assessment de tus datos, tu equipo y tus objetivos — lo que entregamos surge de ese diagnóstico, no al revés.</p>
+          </div>
         </div>
         <div class="valor-item">
-          <div class="valor-num">03</div>
-          <h3>Experiencia desde el territorio</h3>
-          <p>No analizamos desde un escritorio. Combinamos sensores remotos con trabajo de campo real y contexto local para que los resultados tengan sentido donde realmente importa.</p>
+          <div class="valor-base">
+            <div class="valor-num">03</div>
+            <h3>Experiencia desde el territorio</h3>
+          </div>
+          <div class="valor-hover">
+            <h3>Experiencia desde el territorio</h3>
+            <p>No analizamos desde un escritorio. Combinamos sensores remotos con trabajo de campo real y contexto local para que los resultados tengan sentido donde realmente importa.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -344,14 +375,6 @@
         <p style="font-size:.88rem;color:var(--gris);line-height:1.7;font-weight:300;">Lenga no construye dependencia. Cada entrega está documentada y diseñada para que tu equipo pueda operarla y evolucionar de forma autónoma.</p>
       </div>
 
-      <p class="label" style="margin-top:2.5rem;margin-bottom:.75rem;">Así trabajamos</p>
-      <div class="pasos-inline">
-        <div class="paso-mini"><div class="paso-mini-num">01</div><h4>Onboarding</h4><p>Alineamos objetivos, alcance y tiempos desde el primer día.</p></div>
-        <div class="paso-mini"><div class="paso-mini-num">02</div><h4>Método</h4><p>Validamos la metodología y el plan de trabajo juntos.</p></div>
-        <div class="paso-mini"><div class="paso-mini-num">03</div><h4>Localización</h4><p>Contextualizamos y limpiamos los datos del territorio.</p></div>
-        <div class="paso-mini"><div class="paso-mini-num">04</div><h4>Análisis</h4><p>Análisis riguroso con soporte académico y benchmarking.</p></div>
-        <div class="paso-mini"><div class="paso-mini-num">05</div><h4>Resultados</h4><p>Entregamos herramientas diseñadas para tu audiencia.</p></div>
-      </div>
     </div>
   </section>
 
@@ -453,7 +476,6 @@
   <section class="porque section">
     <div class="container">
       <div class="porque-inner">
-        <div class="porque-img-placeholder">📍 Foto bosque de lenga</div>
         <div class="porque-text">
           <span class="label">Nuestro porqué</span>
           <h2>La lenga es un árbol<br /><em>resiliente y amenazado.</em></h2>
@@ -461,6 +483,7 @@
           <p>Investigaciones recientes muestran que el aumento de temperatura amenaza su capacidad de regeneración. Para fines de este siglo, muchas zonas podrían volverse demasiado cálidas para que la lenga sobreviva sin ayuda.</p>
           <p>En Lenga Land Lab nos inspiramos en este árbol, pero también en la urgencia de proteger ecosistemas frágiles. Creemos que la ciencia, la geografía y la información bien usada son herramientas poderosas para actuar a tiempo.</p>
         </div>
+        <div class="porque-img-placeholder">📍 Foto bosque de lenga</div>
       </div>
 
       <div class="porque-stat">
