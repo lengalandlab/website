@@ -66,7 +66,7 @@
     .btn-ghost:hover { background: rgba(255,255,255,.2); }
 
     /* DIFERENCIALES — cards con hover overlay igual a entregables */
-    .valor { background: var(--blanco); }
+    .valor { background: var(--crema); }
     .valor-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 4rem; }
     .valor-intro h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 2.8vw, 2.4rem); line-height: 1.2; color: var(--marron); font-weight: 600; letter-spacing: .02em; }
     .valor-intro h2 em { color: var(--tierra); font-style: italic; }
@@ -75,7 +75,7 @@
     .valor-item {
       border-radius: 14px; overflow: hidden; position: relative;
       aspect-ratio: 4/3;
-      background: var(--crema);
+      background: var(--verde);
       border: 1px solid var(--crema-dk);
     }
     /* capa base — número + título siempre visible */
@@ -98,7 +98,7 @@
     .valor-hover p { font-size: .9rem; color: rgba(244,231,220,.8); line-height: 1.7; font-weight: 300; }
 
     /* SOLUCIONES — filas hover horizontal */
-    .soluciones { background: var(--crema); }
+    .soluciones { background: var(--crema-dk); }
     .section-header { margin-bottom: 3.5rem; }
     .section-header h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); margin-top: .75rem; color: var(--marron); font-weight: 600; letter-spacing: .02em; }
     .tools-grid { display: flex; flex-direction: column; border: 1px solid var(--crema-dk); border-radius: 14px; overflow: hidden; }
@@ -129,9 +129,9 @@
     .entregables-header p { margin-top: .85rem; font-size: .97rem; color: rgba(244,231,220,.6); font-weight: 300; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.7; }
     .entregables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2.5rem; }
     .entregable-card { border-radius: 14px; overflow: hidden; position: relative; aspect-ratio: 4/3; background: rgba(255,255,255,.06); border: 1px solid rgba(244,231,220,.1); }
-    .entregable-card.mapa      { background-image: url('./imagenes/entregable_mapa.jpg'); background-size: cover; background-position: center; }
-    .entregable-card.dashboard { background-image: url('./imagenes/entregable_dashboard.jpg'); background-size: cover; background-position: center; }
-    .entregable-card.reporte   { background-image: url('./imagenes/entregable_reporte.jpg'); background-size: cover; background-position: center; }
+    .entregable-card.mapa      { background-image: url('./imagenes/RS_incendios.png'); background-size: cover; background-position: center; }
+    .entregable-card.dashboard { background-image: url('./imagenes/dashboard2.png'); background-size: cover; background-position: center; }
+    .entregable-card.reporte   { background-image: url('./imagenes/mapas1.png'); background-size: cover; background-position: center; }
     .entregable-base { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; background: linear-gradient(to top, rgba(20,10,5,.75) 0%, transparent 60%); transition: opacity .35s ease; }
     .entregable-card:hover .entregable-base { opacity: 0; }
     .entregable-tiempo { display: inline-block; font-family: var(--font-sub); font-size: .63rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--tierra-lt); border: 1px solid rgba(168,105,74,.5); padding: .2rem .65rem; border-radius: 100px; margin-bottom: .6rem; width: fit-content; }
@@ -164,14 +164,78 @@
     .testimonio blockquote { max-width: 750px; margin: 0 auto; text-align: center; font-family: var(--font-display); font-size: clamp(1.4rem, 2.5vw, 2rem); font-style: italic; color: var(--tierra); line-height: 1.45; font-weight: 400; }
     .testimonio cite { display: block; margin-top: 1.5rem; font-family: var(--font-sub); font-style: normal; font-size: .78rem; font-weight: 700; letter-spacing: .15em; color: var(--gris); text-transform: uppercase; }
 
-    /* NOSOTROS / VIDEO */
-    .nosotros-video { background: var(--marron); padding: clamp(4rem, 8vw, 7rem) 0; }
-    .video-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    .video-wrap { border-radius: 12px; overflow: hidden; aspect-ratio: 16/9; background: rgba(255,255,255,.05); }
-    .video-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
-    .video-text .label { color: rgba(244,231,220,.45); margin-bottom: 1rem; display: block; }
-    .video-text p { font-size: 1.05rem; color: rgba(244,231,220,.8); line-height: 1.85; font-weight: 400; font-family: var(--font-display); font-style: normal; }
+    /* PARTNERS */
+    .partners {
+      background: var(--crema-dk);
+      padding: 2.5rem 0;
+      border-bottom: 1px solid rgba(128,59,40,.1);
+    }
+    .partners-label {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .partners-grid {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2.5rem 4rem;
+    }
+    .partner-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: .55;
+      filter: grayscale(100%);
+      transition: opacity .25s, filter .25s;
+    }
+    .partner-logo:hover { opacity: 1; filter: grayscale(0%); }
+    .partner-logo img { height: 48px; width: auto; max-width: 160px; object-fit: contain; display: block; }
+
+
+    /* NOSOTROS / VIDEO HERO */
+    .nosotros-video {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .video-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(20,10,5,.15) 0%,
+        rgba(20,10,5,.75) 55%,
+        rgba(20,10,5,.88) 100%
+      );
+      z-index: 1;
+    }
+    .video-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .video-text {
+      max-width: 520px;
+    }
+    .video-text .label { color: rgba(244,231,220,.5); margin-bottom: 1.25rem; display: block; }
+    .video-text p { font-size: 1.05rem; color: rgba(244,231,220,.85); line-height: 1.85; font-weight: 400; font-family: var(--font-display); font-style: normal; }
     .video-text p + p { margin-top: 1.25rem; }
+    
 
     /* NUESTRO PORQUÉ */
     .porque { background: var(--crema); }
@@ -266,7 +330,6 @@
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#soluciones">Soluciones</a></li>
-      <li><a href="#entregables">Entregables</a></li>
       <li><a href="#casos">Casos de uso</a></li>
       <li><a href="#nosotros">Nosotros</a></li>
       <li><a href="#contacto" class="nav-cta">Hablemos</a></li>
@@ -308,7 +371,7 @@
           </div>
           <div class="valor-hover">
             <h3>La capacidad se queda en la organización</h3>
-            <p>No construimos dependencia. Cada entrega está documentada para que tu equipo pueda operarla y evolucionarla solo. Si volvés a consultarnos, es porque querés crecer — no porque no podés funcionar sin nosotros.</p>
+            <p>No construimos dependencia. Cada entrega está documentada para que tu equipo pueda operarla y evolucionarla solo.</p>
           </div>
         </div>
         <div class="valor-item">
@@ -318,7 +381,7 @@
           </div>
           <div class="valor-hover">
             <h3>Productos basados en el diagnóstico de necesidades</h3>
-            <p>No hay un producto estándar. Antes de diseñar cualquier herramienta hacemos un assessment de tus datos, tu equipo y tus objetivos — lo que entregamos surge de ese diagnóstico, no al revés.</p>
+            <p>No hay un producto estándar. Antes de diseñar cualquier herramienta hacemos un assessment de tus datos, tu equipo y tus objetivos.</p>
           </div>
         </div>
         <div class="valor-item">
@@ -370,10 +433,7 @@
         </div>
       </div>
 
-      <div style="margin-top:2.5rem;padding:1.5rem 2rem;background:var(--blanco);border-left:3px solid var(--tierra);border-radius:0 8px 8px 0;">
-        <p style="font-family:var(--font-display);font-size:1.05rem;font-style:italic;color:var(--tierra);margin-bottom:.4rem;">"La capacidad se queda en la organización."</p>
-        <p style="font-size:.88rem;color:var(--gris);line-height:1.7;font-weight:300;">Lenga no construye dependencia. Cada entrega está documentada y diseñada para que tu equipo pueda operarla y evolucionar de forma autónoma.</p>
-      </div>
+  
 
     </div>
   </section>
@@ -383,7 +443,7 @@
     <div class="container">
       <div class="entregables-header">
         <p class="label">Sin proceso largo</p>
-        <h2>¿Ya tenés los datos?<br />Solo necesitás el entregable.</h2>
+        <h2>¿Ya tenés los datos?<br />Te ayudamos a visualizarlos.</h2>
         <p>Trabajamos también por proyecto puntual. Un mapa, un dashboard, un reporte — sin consultoría completa, sin tiempos largos.</p>
       </div>
       <div class="entregables-grid">
@@ -417,27 +477,29 @@
             src="https://aasd.maps.arcgis.com/apps/dashboards/28a5dedccaaf4178867d14c320a2696e"></iframe>
         </div>
         <div class="caso-content">
-          <span class="tag">Café de especialidad · Bolivia</span>
-          <h3>Café Orígenes & Yungas Coffee</h3>
+          <span class="tag">Café de especialidad · Peru - EEUU</span>
+          <h3>Yungas Coffee</h3>
           <p>En el mercado de commodities es clave destacarse. La trazabilidad del café de especialidad es difícil de probar. Lenga desarrolló un dashboard geográfico innovador que fue presentado en conferencias internacionales como la SCA.</p>
           <div class="caso-stats">
-            <div class="stat"><div class="stat-num">95</div><div class="stat-label">Agricultores</div></div>
-            <div class="stat"><div class="stat-num">140.5</div><div class="stat-label">Hectáreas sostenibles</div></div>
-            <div class="stat"><div class="stat-num">230.4</div><div class="stat-label">Ha área total</div></div>
+            <div class="stat"><div class="stat-num">252</div><div class="stat-label">Agricultores</div></div>
+            <div class="stat"><div class="stat-num">157.2</div><div class="stat-label">Hectáreas sostenibles</div></div>
+            <div class="stat"><div class="stat-num">215.7</div><div class="stat-label">Ha área total</div></div>
           </div>
         </div>
       </div>
       <div class="caso-item reverse fade-up">
         <div class="caso-content">
-          <span class="tag">Conservación · [País]</span>
-          <h3>Tu segundo caso de uso</h3>
-          <p>Describí acá brevemente el proyecto: cuál era el problema, qué hizo Lenga y cuál fue el resultado concreto para el cliente.</p>
+          <span class="tag">Conservación · Argentina</span>
+          <h3>Análisis de severidad de huella de incendio</h3>
+          <p>¿Cuáles son las huellas de un incendio? ¿Cuán fuerte fue el cambio ecológico? A estas preguntas responde el análisis de severidad.</p>
           <div class="caso-stats">
-            <div class="stat"><div class="stat-num">—</div><div class="stat-label">Resultado clave</div></div>
-            <div class="stat"><div class="stat-num">—</div><div class="stat-label">Otro indicador</div></div>
+            <div class="stat"><div class="stat-num"></div><div class="stat-label">Visualización geográfica y vectorización de severidad del incendio</div></div>
           </div>
         </div>
-        <div class="caso-img">📍 Imagen: caso 2</div>
+        <div class="caso-img">
+          <iframe width="100%" height="100%" frameborder="0" scrolling="no"
+            src="https://santiagofernandezpena.users.earthengine.app/view/severidadsteffenymartin"></iframe>
+        </div>
       </div>
     </div>
   </section>
@@ -447,27 +509,59 @@
     <div class="container">
       <blockquote>
         "Lenga nos ayudó a posicionarnos estratégicamente como líderes en trazabilidad y presentarle a nuestros financiadores por primera vez evidencia espacial real."
-        <cite>— Luke Agness, Manager at Yungas · United States</cite>
+        <cite>— Manager at Yungas · Estados Unidos</cite>
       </blockquote>
     </div>
   </section>
 
-  <!-- NOSOTROS / VIDEO -->
-  <section class="nosotros-video" id="nosotros">
+<!-- PARTNERS -->
+  <section class="partners">
     <div class="container">
-      <div class="video-inner">
-        <div class="video-wrap">
-          <!-- Reemplazá con tu URL de YouTube o Vimeo: -->
-          <!-- YouTube: https://www.youtube.com/embed/TU_VIDEO_ID -->
-          <!-- Vimeo:   https://player.vimeo.com/video/TU_VIDEO_ID -->
-          <iframe src="https://www.youtube.com/embed/TU_VIDEO_ID" allowfullscreen></iframe>
-        </div>
-        <div class="video-text">
-          <span class="label">Nuestra filosofía</span>
-          <p>No se trata solo de mapas o datos: se trata de entender un territorio, de leerlo como si fuera un lenguaje vivo. ¿Tu proyecto necesita ver lo que otros no ven, conectar información dispersa o transformar decisiones en impacto real? Ahí es donde entramos.</p>
-          <p>En Lenga no entregamos "productos terminados": trabajamos con vos para descubrir qué historia cuenta tu tierra, tu comunidad o tu iniciativa. Combinamos análisis espacial, experiencia en campo y una mirada humana para que cada mapa sea una herramienta, no solo una imagen bonita.</p>
-          <p>Lo especial no es la tecnología — aunque la usamos bien — sino la forma en que pensamos: colaborativa, flexible y con los pies en la tierra.</p>
-        </div>
+      <p class="label partners-label">Confían en Lenga</p>
+      <div class="partners-grid">
+        <!--
+          Subí los logos a la carpeta imagenes/ en GitHub.
+          Nombres sugeridos:
+            imagenes/logo_campesina.png
+            imagenes/logo_andean.png
+            imagenes/logo_origenes.png
+            imagenes/logo_lindex.png
+            imagenes/logo_yungas.png
+        -->
+        <a href="#" class="partner-logo" aria-label="Campesina Forestal">
+          <img src="./imagenes/logo-removedbg.png" alt="Campesina Forestal" />
+        </a>
+        <a href="#" class="partner-logo" aria-label="The Andean Alliance for Sustainable Development">
+          <img src="./imagenes/AASD-Logo-Vector-Spanish.png" alt="The Andean Alliance for Sustainable Development" />
+        </a>
+        <a href="#" class="partner-logo" aria-label="Orígenes">
+          <img src="./imagenes/02 - Black - Positivo.png" alt="Orígenes · Café de los Campesinos Peruanos" />
+        </a>
+        <a href="#" class="partner-logo" aria-label="LindeX">
+          <img src="./imagenes/lindex no BG.png" alt="LindeX" />
+        </a>
+        <a href="#" class="partner-logo" aria-label="Yungas">
+          <img src="./imagenes/Logo-Tagline-Light.png" alt="Yungas" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS / VIDEO HERO -->
+  <section class="nosotros-video" id="nosotros">
+    <!-- Reemplazá la URL con tu video de Cloudinary -->
+    <div class="video-bg">
+      <video autoplay muted loop playsinline>
+        <source src="https://res.cloudinary.com/dab1a7ttf/video/upload/v1778147519/DJI_0050_1_ha2rvw.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="video-overlay"></div>
+    <div class="container video-content">
+      <div class="video-text">
+        <span class="label">Nuestra filosofía</span>
+        <p>No se trata solo de mapas o datos: se trata de entender un territorio, de leerlo como si fuera un lenguaje vivo. ¿Tu proyecto necesita ver lo que otros no ven, conectar información dispersa o transformar decisiones en impacto real? Ahí es donde entramos.</p>
+        <p>En Lenga no entregamos "productos terminados": trabajamos con vos para descubrir qué historia cuenta tu tierra, tu comunidad o tu iniciativa. Combinamos análisis espacial, experiencia en campo y una mirada humana para que cada mapa sea una herramienta, no solo una imagen bonita.</p>
+        <p>Lo especial no es la tecnología — aunque la usamos bien — sino la forma en que pensamos: colaborativa, flexible y con los pies en la tierra.</p>
       </div>
     </div>
   </section>
@@ -492,9 +586,15 @@
       </div>
 
       <div class="porque-fotos">
-        <div class="porque-foto">📍 Comunidad</div>
-        <div class="porque-foto">📍 Paisaje</div>
-        <div class="porque-foto">📍 Cultivo</div>
+        <a href="#" class="partner-logo" aria-label="Orígenes">
+          <img src="./imagenes/Women from Umapata.JPG" alt="cultivo" />
+        </a>
+        <a href="#" class="partner-logo" aria-label="LindeX">
+          <img src="./imagenes/fotos pa presentaicón.jpg" alt="impacto" />
+        </a>
+        <a href="#" class="partner-logo" aria-label="Yungas">
+          <img src="./imagenes/_DSF1995.JPG" alt="comunidad" />
+        </a>
       </div>
 
       <p class="porque-frase">Creamos comunidad, desde el Sur, para el mundo.</p>
@@ -583,10 +683,10 @@
     <div class="footer-bottom">
       <span class="footer-copy">© 2026 Lenga Land Lab · Análisis territorial para proyectos de impacto</span>
       <div class="footer-social">
-        <a href="https://instagram.com/lengalandlab" target="_blank" aria-label="Instagram">
+        <a href="https://instagram.com/lenga.lab" target="_blank" aria-label="Instagram">
           <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         </a>
-        <a href="https://linkedin.com/company/lengalandlab" target="_blank" aria-label="LinkedIn">
+        <a href="https://linkedin.com/company/lenga-land-lab" target="_blank" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         </a>
       </div>
