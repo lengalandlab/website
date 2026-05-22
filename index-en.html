@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lenga · Análisis territorial para proyectos de impacto</title>
-  <meta name="description" content="Convertimos tus datos de campo en evidencia que convence a financiadores y mueve decisiones. Análisis espacial, visualización geográfica y reportes de impacto." />
+  <title>Lenga · Territorial Analysis for Impact Projects</title>
+  <meta name="description" content="We turn your field data into evidence that convinces funders and drives decisions. Spatial analysis, geographic visualization, and impact reporting." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -67,58 +67,36 @@
     .btn-ghost { background: rgba(255,255,255,.12); color: var(--blanco); border: 1px solid rgba(255,255,255,.3); backdrop-filter: blur(6px); }
     .btn-ghost:hover { background: rgba(255,255,255,.2); }
 
-    /* DIFERENCIALES — cards con hover overlay igual a entregables */
+    /* DIFERENCIALES */
     .valor { background: var(--crema); }
     .valor-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 4rem; }
     .valor-intro h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 2.8vw, 2.4rem); line-height: 1.2; color: var(--marron); font-weight: 600; letter-spacing: .02em; }
     .valor-intro h2 em { color: var(--tierra); font-style: italic; }
     .valor-intro p { color: var(--gris); font-size: .97rem; line-height: 1.8; font-weight: 300; }
     .valor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-    .valor-item {
-      border-radius: 14px; overflow: hidden; position: relative;
-      aspect-ratio: 4/3;
-      background: var(--verde);
-      border: 1px solid var(--crema-dk);
-    }
-    /* capa base — número + título siempre visible */
-    .valor-base {
-      position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 1.75rem;
-      background: linear-gradient(to top, rgba(43,22,12,.55) 0%, transparent 60%);
-      transition: opacity .35s ease;
-    }
+    .valor-item { border-radius: 14px; overflow: hidden; position: relative; aspect-ratio: 4/3; background: var(--verde); border: 1px solid var(--crema-dk); }
+    .valor-base { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.75rem; background: linear-gradient(to top, rgba(43,22,12,.55) 0%, transparent 60%); transition: opacity .35s ease; }
     .valor-item:hover .valor-base { opacity: 0; }
     .valor-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 600; color: rgba(244,231,220,.5); line-height: 1; margin-bottom: .5rem; }
     .valor-base h3 { font-family: var(--font-sub); font-size: 1rem; font-weight: 700; color: var(--blanco); letter-spacing: .03em; line-height: 1.3; }
-    /* capa hover — descripción */
-    .valor-hover {
-      position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;
-      padding: 1.75rem; background: rgba(128,59,40,.92); opacity: 0; transition: opacity .35s ease;
-    }
+    .valor-hover { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 1.75rem; background: rgba(128,59,40,.92); opacity: 0; transition: opacity .35s ease; }
     .valor-item:hover .valor-hover { opacity: 1; }
     .valor-hover h3 { font-family: var(--font-sub); font-size: .95rem; font-weight: 700; color: var(--crema); margin-bottom: .75rem; letter-spacing: .03em; }
     .valor-hover p { font-size: .9rem; color: rgba(244,231,220,.8); line-height: 1.7; font-weight: 300; }
 
-    /* SOLUCIONES — filas hover horizontal */
+    /* SOLUCIONES */
     .soluciones { background: var(--crema-dk); }
     .section-header { margin-bottom: 3.5rem; }
     .section-header h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); margin-top: .75rem; color: var(--marron); font-weight: 600; letter-spacing: .02em; }
     .tools-grid { display: flex; flex-direction: column; border: 1px solid var(--crema-dk); border-radius: 14px; overflow: hidden; }
-    .tool-card {
-      display: grid; grid-template-columns: 42% 58%;
-      align-items: stretch; background: var(--blanco);
-      border-bottom: 1px solid var(--crema-dk); min-height: 72px;
-      position: relative; overflow: hidden;
-    }
+    .tool-card { display: grid; grid-template-columns: 42% 58%; align-items: stretch; background: var(--blanco); border-bottom: 1px solid var(--crema-dk); min-height: 72px; position: relative; overflow: hidden; }
     .tool-card:last-child { border-bottom: none; }
-    /* capa base izquierda — siempre visible */
     .tool-left { display: flex; align-items: center; gap: 1.25rem; padding: 1.25rem 1.75rem; border-right: 1px solid var(--crema-dk); transition: background .3s; z-index: 1; }
     .tool-card:hover .tool-left { background: var(--crema); }
     .tool-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; color: var(--crema-dk); line-height: 1; min-width: 1.8rem; transition: color .3s; }
     .tool-card:hover .tool-num { color: var(--tierra-lt); }
     .tool-name { font-family: var(--font-display); font-size: clamp(1rem, 1.3vw, 1.15rem); font-weight: 600; color: var(--marron); line-height: 1.25; transition: color .3s; }
     .tool-card:hover .tool-name { color: var(--tierra); }
-    /* capa derecha — descripción con fade */
     .tool-body { padding: 1.25rem 1.75rem; display: flex; align-items: center; opacity: 0; transition: opacity .4s ease, background .3s; background: var(--blanco); }
     .tool-card:hover .tool-body { opacity: 1; background: var(--crema); }
     .tool-body p { font-size: .88rem; color: var(--gris); line-height: 1.65; font-weight: 300; }
@@ -167,83 +145,28 @@
     .testimonio cite { display: block; margin-top: 1.5rem; font-family: var(--font-sub); font-style: normal; font-size: .78rem; font-weight: 700; letter-spacing: .15em; color: var(--gris); text-transform: uppercase; }
 
     /* PARTNERS */
-    .partners {
-      background: var(--crema-dk);
-      padding: 2.5rem 0;
-      border-bottom: 1px solid rgba(128,59,40,.1);
-    }
-    .partners-label {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .partners-grid {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 2.5rem 4rem;
-    }
-    .partner-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: .55;
-      filter: grayscale(100%);
-      transition: opacity .25s, filter .25s;
-    }
+    .partners { background: var(--crema-dk); padding: 2.5rem 0; border-bottom: 1px solid rgba(128,59,40,.1); }
+    .partners-label { text-align: center; margin-bottom: 2rem; }
+    .partners-grid { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 2.5rem 4rem; }
+    .partner-logo { display: flex; align-items: center; justify-content: center; opacity: .55; filter: grayscale(100%); transition: opacity .25s, filter .25s; }
     .partner-logo:hover { opacity: 1; filter: grayscale(0%); }
     .partner-logo img { height: 48px; width: auto; max-width: 160px; object-fit: contain; display: block; }
 
-
     /* NOSOTROS / VIDEO HERO */
-    .nosotros-video {
-      position: relative;
-      min-height: 85vh;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-    }
-    .video-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-    }
-    .video-bg video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .video-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to right,
-        rgba(20,10,5,.15) 0%,
-        rgba(20,10,5,.75) 55%,
-        rgba(20,10,5,.88) 100%
-      );
-      z-index: 1;
-    }
-    .video-content {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      justify-content: flex-end;
-    }
-    .video-text {
-      max-width: 520px;
-    }
+    .nosotros-video { position: relative; min-height: 85vh; display: flex; align-items: center; overflow: hidden; }
+    .video-bg { position: absolute; inset: 0; z-index: 0; }
+    .video-bg video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(20,10,5,.15) 0%, rgba(20,10,5,.75) 55%, rgba(20,10,5,.88) 100%); z-index: 1; }
+    .video-content { position: relative; z-index: 2; display: flex; justify-content: flex-end; }
+    .video-text { max-width: 520px; }
     .video-text .label { color: rgba(244,231,220,.5); margin-bottom: 1.25rem; display: block; }
     .video-text p { font-size: 1.05rem; color: rgba(244,231,220,.85); line-height: 1.85; font-weight: 400; font-family: var(--font-display); font-style: normal; }
     .video-text p + p { margin-top: 1.25rem; }
-    
 
     /* NUESTRO PORQUÉ */
     .porque { background: var(--crema); }
-    .porque-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: stretch; margin-bottom: 3.5rem; }
-    .porque-img-placeholder { width: 100%; min-height: 380px; background: var(--crema-dk); display: flex; align-items: center; justify-content: center; color: var(--gris); font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; border-radius: 12px; border: 1px dashed rgba(122,74,46,.2); overflow: hidden; }
-    .porque-img-placeholder img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .porque-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-bottom: 3.5rem; }
+    .porque-img-placeholder { width: 100%; background: var(--crema-dk); display: flex; align-items: center; justify-content: center; color: var(--gris); font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; aspect-ratio: 4/3; border-radius: 12px; border: 1px dashed rgba(122,74,46,.2); }
     .porque-text .label { margin-bottom: 1rem; display: block; }
     .porque-text h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 600; color: var(--marron); margin-bottom: 1.25rem; line-height: 1.2; letter-spacing: .02em; }
     .porque-text h2 em { color: var(--tierra); font-style: italic; }
@@ -301,15 +224,11 @@
       .hamburger { display: flex; }
       .valor-intro { grid-template-columns: 1fr; gap: 2rem; }
       .valor-grid { grid-template-columns: 1fr; }
-      .valor-item { border-right: none; border-bottom: 1px solid var(--crema-dk); }
-      .valor-item:last-child { border-bottom: none; }
-      .valor-grid { grid-template-columns: 1fr; }
       .tool-card { grid-template-columns: 1fr; }
       .tool-left { border-right: none; border-bottom: 1px solid var(--crema-dk); }
       .tool-body { opacity: 1; }
       .entregables-grid { grid-template-columns: 1fr 1fr; }
       .caso-item { grid-template-columns: 1fr; gap: 2rem; }
-      .video-inner { grid-template-columns: 1fr; gap: 3rem; }
       .porque-inner { grid-template-columns: 1fr; gap: 3rem; }
       .contacto-inner { grid-template-columns: 1fr; gap: 3rem; }
       .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
@@ -333,13 +252,13 @@
       <img src="./imagenes/logo2.png" alt="Lenga" style="height:70px;" />
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#soluciones">Soluciones</a></li>
-      <li><a href="#casos">Casos de uso</a></li>
-      <li><a href="#nosotros">Nosotros</a></li>
-      <li><a href="index-en.html" class="nav-lang">EN</a></li>
-      <li><a href="#contacto" class="nav-cta">Hablemos</a></li>
+      <li><a href="#soluciones">Solutions</a></li>
+      <li><a href="#casos">Case Studies</a></li>
+      <li><a href="#nosotros">About</a></li>
+      <li><a href="index.html" class="nav-lang">ES</a></li>
+      <li><a href="#contacto" class="nav-cta">Get in Touch</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Menú">
+    <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </nav>
@@ -354,145 +273,142 @@
     <div class="hero-overlay"></div>
     <div class="container">
       <div class="hero-content">
-        <p class="label">Análisis territorial · Visualización geoespacial</p>
-        <h1>La tierra habla.<br /><em>Te ayudamos a recolectar, interpretar y visualizar</em><br />lo que dice.</h1>
-        <p>Convertimos lo que hacés en el territorio en evidencia que convence a tu público, mueve decisiones y multiplica tu impacto.</p>
+        <p class="label">Territorial Analysis · Geospatial Visualization</p>
+        <h1>The land speaks.<br /><em>We help you collect, interpret, and visualize</em><br />what it says.</h1>
+        <p>We transform your fieldwork into evidence that convinces stakeholders, drives decisions, and amplifies your impact.</p>
         <div class="hero-actions">
-          <a href="#contacto" class="btn btn-primary">Hablemos de tu proyecto →</a>
-          <a href="#casos" class="btn btn-ghost">Ver casos de uso</a>
+          <a href="#contacto" class="btn btn-primary">Let's talk about your project →</a>
+          <a href="#casos" class="btn btn-ghost">View case studies</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- NOSOTROS / FILOSOFÍA -->
+  <!-- OUR APPROACH -->
   <section class="nosotros-video" id="nosotros">
     <div class="video-bg" style="background-image:url('./imagenes/juihuay_hero.JPG');background-size:cover;background-position:center;"></div>
     <div class="video-overlay"></div>
     <div class="container video-content">
       <div class="video-text">
-        <span class="label">Nuestra filosofía</span>
-        <p>No se trata solo de mapas o datos: se trata de entender un territorio, de leerlo como si fuera un lenguaje vivo. ¿Tu proyecto necesita ver lo que otros no ven, conectar información dispersa o transformar decisiones en impacto real? Ahí es donde entramos.</p>
-        <p>En Lenga no entregamos "productos terminados": trabajamos con vos para descubrir qué historia cuenta tu tierra, tu comunidad o tu iniciativa. Combinamos análisis espacial, experiencia en campo y una mirada humana para que cada mapa sea una herramienta, no solo una imagen bonita.</p>
-        <p>Lo especial no es la tecnología — aunque la usamos bien — sino la forma en que pensamos: colaborativa, flexible y con los pies en la tierra.</p>
+        <span class="label">Our Approach</span>
+        <p>It's not just about maps or data — it's about understanding a territory, reading it as though it were a living language. Does your project need to see what others can't, connect dispersed information, or turn decisions into real impact? That's where we come in.</p>
+        <p>At Lenga, we don't deliver off-the-shelf products. We work alongside you to uncover the story your land, your community, or your initiative has to tell. We combine spatial analysis, field experience, and a human-centered perspective so that every map becomes a tool — not just a nice image.</p>
+        <p>What sets us apart isn't the technology — though we use it well — it's the way we think: collaborative, adaptable, and grounded in the realities of the territory.</p>
       </div>
     </div>
   </section>
 
-  <!-- DIFERENCIALES -->
+  <!-- DIFFERENTIATORS -->
   <section class="valor section" id="propuesta">
     <div class="container">
       <div class="valor-intro">
-        <h2>Hacemos mapas bonitos, sí.<br />Pero nuestro objetivo es crear <em>herramientas</em><br />que fortalezcan decisiones.</h2>
-        <p>Trabajamos con ONGs, proyectos de conservación y organizaciones que necesitan demostrar su impacto. Combinamos análisis espacial, experiencia de campo y metodología rigurosa para que cada entrega sea una herramienta, no solo una imagen.</p>
+        <h2>We make beautiful maps, yes.<br />But our goal is to build <em>tools</em><br />that strengthen decisions.</h2>
+        <p>We work with NGOs, conservation projects, and organizations that need to demonstrate their impact. We combine spatial analysis, field experience, and rigorous methodology so that every deliverable is a tool — not just a visualization.</p>
       </div>
       <div class="valor-grid">
         <div class="valor-item">
           <div class="valor-base">
             <div class="valor-num">01</div>
-            <h3>La capacidad se queda en la organización</h3>
+            <h3>Capacity stays within the organization</h3>
           </div>
           <div class="valor-hover">
-            <h3>La capacidad se queda en la organización</h3>
-            <p>No construimos dependencia. Cada entrega está documentada para que tu equipo pueda operarla y evolucionarla solo.</p>
+            <h3>Capacity stays within the organization</h3>
+            <p>We don't build dependency. Every deliverable is fully documented so your team can operate and evolve it independently.</p>
           </div>
         </div>
         <div class="valor-item">
           <div class="valor-base">
             <div class="valor-num">02</div>
-            <h3>Productos basados en el diagnóstico de necesidades</h3>
+            <h3>Products shaped by a needs assessment</h3>
           </div>
           <div class="valor-hover">
-            <h3>Productos basados en el diagnóstico de necesidades</h3>
-            <p>No hay un producto estándar. Antes de diseñar cualquier herramienta hacemos un assessment de tus datos, tu equipo y tus objetivos.</p>
+            <h3>Products shaped by a needs assessment</h3>
+            <p>There is no standard product. Before designing any tool, we conduct a thorough assessment of your data, your team, and your objectives.</p>
           </div>
         </div>
         <div class="valor-item">
           <div class="valor-base">
             <div class="valor-num">03</div>
-            <h3>Experiencia desde el territorio</h3>
+            <h3>Experience rooted in the territory</h3>
           </div>
           <div class="valor-hover">
-            <h3>Experiencia desde el territorio</h3>
-            <p>No analizamos desde un escritorio. Combinamos sensores remotos con trabajo de campo real y contexto local para que los resultados tengan sentido donde realmente importa.</p>
+            <h3>Experience rooted in the territory</h3>
+            <p>We don't analyze from behind a desk. We combine remote sensing with real fieldwork and local context so that results make sense where it matters most.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SOLUCIONES -->
+  <!-- SOLUTIONS -->
   <section class="soluciones section" id="soluciones">
     <div class="container">
       <div class="section-header">
-        <p class="label">Lo que hacemos</p>
-        <h2>Nuestras soluciones</h2>
-        <p style="margin-top:1rem;max-width:640px;color:var(--gris);font-size:.97rem;line-height:1.75;font-weight:300;">Cada proyecto es distinto. Las soluciones se pueden contratar de forma independiente o como secuencia. En todos los casos, lo que entregamos se queda con vos.</p>
+        <p class="label">What We Do</p>
+        <h2>Our Solutions</h2>
+        <p style="margin-top:1rem;max-width:640px;color:var(--gris);font-size:.97rem;line-height:1.75;font-weight:300;">Every project is different. Our solutions can be contracted independently or as a sequence. In every case, what we deliver stays with you.</p>
       </div>
       <div class="tools-grid">
         <div class="tool-card">
-          <div class="tool-left"><span class="tool-num">01</span><span class="tool-name">Diagnóstico de punto de partida</span></div>
-          <div class="tool-body"><p>Antes de medir, hay que saber qué tenés. Evaluamos el estado de tus datos, tu capacidad de registro y tus objetivos — y te decimos qué construir primero para no invertir en lo equivocado.</p></div>
+          <div class="tool-left"><span class="tool-num">01</span><span class="tool-name">Baseline Data Assessment</span></div>
+          <div class="tool-body"><p>Before measuring anything, you need to know what you have. We assess the state of your data, your recording capacity, and your objectives — and tell you what to build first so you don't invest in the wrong things.</p></div>
         </div>
         <div class="tool-card">
-          <div class="tool-left"><span class="tool-num">02</span><span class="tool-name">Marco de medición de impacto</span></div>
-          <div class="tool-body"><p>Definimos con vos qué significa el éxito y cómo demostrarlo. Un sistema de indicadores claro, co-construido con tu equipo, que conecta cada actividad con el cambio que querés generar.</p></div>
+          <div class="tool-left"><span class="tool-num">02</span><span class="tool-name">Impact Measurement Framework</span></div>
+          <div class="tool-body"><p>We define with you what success looks like and how to demonstrate it. A clear M&E indicator system, co-designed with your team, that connects every activity to the change you seek to generate.</p></div>
         </div>
         <div class="tool-card">
-          <div class="tool-left"><span class="tool-num">03</span><span class="tool-name">Evidencia territorial</span></div>
-          <div class="tool-body"><p>Mostramos dónde y cómo cambia el territorio a lo largo del tiempo. Un recurso visual y riguroso que hace visible lo que antes solo podía describirse con palabras.</p></div>
+          <div class="tool-left"><span class="tool-num">03</span><span class="tool-name">Territorial Evidence</span></div>
+          <div class="tool-body"><p>We show where and how the territory changes over time. A rigorous, visual resource that makes visible what previously could only be described in words.</p></div>
         </div>
         <div class="tool-card">
-          <div class="tool-left"><span class="tool-num">04</span><span class="tool-name">Recolección de datos en campo</span></div>
-          <div class="tool-body"><p>Diseñamos los instrumentos, protocolos y flujos para que tu equipo recolecte datos de forma confiable y consistente. Sin depender de consultores externos cada vez que salís a campo.</p></div>
+          <div class="tool-left"><span class="tool-num">04</span><span class="tool-name">Field Data Collection System</span></div>
+          <div class="tool-body"><p>We design the instruments, protocols, and workflows so your team collects data reliably and consistently — without depending on external consultants every time you go to the field.</p></div>
         </div>
         <div class="tool-card">
-          <div class="tool-left"><span class="tool-num">05</span><span class="tool-name">Narrativa de impacto para financiadores</span></div>
-          <div class="tool-body"><p>Transformamos tus datos en un reporte claro, honesto y visualmente potente. Pensado para quien tiene que decidir si seguir financiando tu trabajo — y que entienda por qué vale la pena.</p></div>
+          <div class="tool-left"><span class="tool-num">05</span><span class="tool-name">Impact Narrative for Funders</span></div>
+          <div class="tool-body"><p>We turn your data into a clear, honest, and visually compelling report. Designed for the person who needs to decide whether to continue funding your work — and understand why it's worth it.</p></div>
         </div>
         <div class="tool-card">
-          <div class="tool-left"><span class="tool-num">06</span><span class="tool-name">Visualización interactiva</span></div>
-          <div class="tool-body"><p>Una herramienta que permite explorar tus datos, cruzar variables y comunicar resultados de forma dinámica. Para presentar en reuniones, eventos o publicar en tu propio sitio.</p></div>
+          <div class="tool-left"><span class="tool-num">06</span><span class="tool-name">Interactive Visualization</span></div>
+          <div class="tool-body"><p>A tool that lets you explore your data, cross-reference variables, and communicate results dynamically. For meetings, events, or embedded directly on your own website.</p></div>
         </div>
       </div>
-
-  
-
     </div>
   </section>
 
-  <!-- ENTREGABLES -->
+  <!-- DELIVERABLES -->
   <section class="entregables" id="entregables">
     <div class="container">
       <div class="entregables-header">
-        <p class="label">Sin proceso largo</p>
-        <h2>¿Ya tenés los datos?<br />Te ayudamos a visualizarlos.</h2>
-        <p>Trabajamos también por proyecto puntual. Un mapa, un dashboard, un reporte — sin consultoría completa, sin tiempos largos.</p>
+        <p class="label">No lengthy process</p>
+        <h2>Already have the data?<br />We'll help you visualize it.</h2>
+        <p>We also work on standalone projects. A map, a dashboard, a report — no full consulting engagement, no long timelines.</p>
       </div>
       <div class="entregables-grid">
         <div class="entregable-card mapa">
-          <div class="entregable-base"><span class="entregable-tiempo">Desde 1 semana</span><h3>Mapa</h3></div>
-          <div class="entregable-hover"><span class="entregable-tiempo">Desde 1 semana</span><h3>Mapa</h3><p>Tu territorio, tus datos, tu historia. Un mapa listo para presentar, publicar o entregar a financiadores — diseñado para que se entienda a primera vista.</p></div>
+          <div class="entregable-base"><span class="entregable-tiempo">From 1 week</span><h3>Map</h3></div>
+          <div class="entregable-hover"><span class="entregable-tiempo">From 1 week</span><h3>Map</h3><p>Your territory, your data, your story. A map ready to present, publish, or deliver to funders — designed to be understood at first glance.</p></div>
         </div>
         <div class="entregable-card dashboard">
-          <div class="entregable-base"><span class="entregable-tiempo">Desde 2 semanas</span><h3>Dashboard</h3></div>
-          <div class="entregable-hover"><span class="entregable-tiempo">Desde 2 semanas</span><h3>Dashboard</h3><p>Tus datos, explorables e interactivos. Para reuniones internas, eventos internacionales o directamente embebido en tu sitio web.</p></div>
+          <div class="entregable-base"><span class="entregable-tiempo">From 2 weeks</span><h3>Dashboard</h3></div>
+          <div class="entregable-hover"><span class="entregable-tiempo">From 2 weeks</span><h3>Dashboard</h3><p>Your data, explorable and interactive. For internal meetings, international events, or embedded directly on your website.</p></div>
         </div>
         <div class="entregable-card reporte">
-          <div class="entregable-base"><span class="entregable-tiempo">Desde 1 semana</span><h3>Reporte de impacto</h3></div>
-          <div class="entregable-hover"><span class="entregable-tiempo">Desde 1 semana</span><h3>Reporte de impacto</h3><p>Tus resultados en un documento claro, visual y honesto. Pensado para el financiador que necesita entender qué pasó — y por qué vale la pena seguir.</p></div>
+          <div class="entregable-base"><span class="entregable-tiempo">From 1 week</span><h3>Impact Report</h3></div>
+          <div class="entregable-hover"><span class="entregable-tiempo">From 1 week</span><h3>Impact Report</h3><p>Your results in a clear, visual, and honest document. Designed for the funder who needs to understand what happened — and why it's worth continuing.</p></div>
         </div>
       </div>
-      <div class="entregables-cta"><a href="#contacto" class="btn-crema">Contame qué necesitás →</a></div>
+      <div class="entregables-cta"><a href="#contacto" class="btn-crema">Tell us what you need →</a></div>
     </div>
   </section>
 
-  <!-- CASOS -->
+  <!-- CASE STUDIES -->
   <section class="casos section" id="casos">
     <div class="container">
       <div class="section-header">
-        <p class="label">En acción</p>
-        <h2>Casos de uso</h2>
+        <p class="label">In Action</p>
+        <h2>Case Studies</h2>
       </div>
       <div class="caso-item">
         <div class="caso-img">
@@ -500,23 +416,23 @@
             src="https://aasd.maps.arcgis.com/apps/dashboards/28a5dedccaaf4178867d14c320a2696e"></iframe>
         </div>
         <div class="caso-content">
-          <span class="tag">Café de especialidad · Peru - EEUU</span>
+          <span class="tag">Specialty Coffee · Peru – USA</span>
           <h3>Yungas Coffee</h3>
-          <p>En el mercado de commodities es clave destacarse. La trazabilidad del café de especialidad es difícil de probar. Lenga desarrolló un dashboard geográfico innovador que fue presentado en conferencias internacionales como la SCA.</p>
+          <p>In the commodity market, differentiation is key. Traceability for specialty coffee is notoriously difficult to prove. Lenga developed an innovative geographic dashboard that was presented at international conferences including the SCA Expo.</p>
           <div class="caso-stats">
-            <div class="stat"><div class="stat-num">252</div><div class="stat-label">Agricultores</div></div>
-            <div class="stat"><div class="stat-num">157.2</div><div class="stat-label">Hectáreas sostenibles</div></div>
-            <div class="stat"><div class="stat-num">215.7</div><div class="stat-label">Ha área total</div></div>
+            <div class="stat"><div class="stat-num">252</div><div class="stat-label">Farmers</div></div>
+            <div class="stat"><div class="stat-num">157.2</div><div class="stat-label">Sustainable hectares</div></div>
+            <div class="stat"><div class="stat-num">215.7</div><div class="stat-label">Ha total area</div></div>
           </div>
         </div>
       </div>
       <div class="caso-item reverse fade-up">
         <div class="caso-content">
-          <span class="tag">Conservación · Argentina</span>
-          <h3>Análisis de severidad de huella de incendio</h3>
-          <p>¿Cuáles son las huellas de un incendio? ¿Cuán fuerte fue el cambio ecológico? A estas preguntas responde el análisis de severidad.</p>
+          <span class="tag">Conservation · Argentina</span>
+          <h3>Wildfire Burn Severity Analysis</h3>
+          <p>What traces does a wildfire leave behind? How severe was the ecological disruption? Burn severity analysis answers these questions through remote sensing and spatial classification.</p>
           <div class="caso-stats">
-            <div class="stat"><div class="stat-num"></div><div class="stat-label">Visualización geográfica y vectorización de severidad del incendio</div></div>
+            <div class="stat"><div class="stat-num"></div><div class="stat-label">Geographic visualization and burn severity vectorization</div></div>
           </div>
         </div>
         <div class="caso-img">
@@ -527,30 +443,21 @@
     </div>
   </section>
 
-  <!-- TESTIMONIO -->
+  <!-- TESTIMONIAL -->
   <section class="testimonio">
     <div class="container">
       <blockquote>
-        "Lenga nos ayudó a posicionarnos estratégicamente como líderes en trazabilidad y presentarle a nuestros financiadores por primera vez evidencia espacial real."
-        <cite>— Manager at Yungas · Estados Unidos</cite>
+        "Lenga helped us position ourselves strategically as leaders in traceability and present our funders with real spatial evidence for the first time."
+        <cite>— Manager at Yungas · United States</cite>
       </blockquote>
     </div>
   </section>
 
-<!-- PARTNERS -->
+  <!-- PARTNERS -->
   <section class="partners">
     <div class="container">
-      <p class="label partners-label">Confían en Lenga</p>
+      <p class="label partners-label">Trusted By</p>
       <div class="partners-grid">
-        <!--
-          Subí los logos a la carpeta imagenes/ en GitHub.
-          Nombres sugeridos:
-            imagenes/logo_campesina.png
-            imagenes/logo_andean.png
-            imagenes/logo_origenes.png
-            imagenes/logo_lindex.png
-            imagenes/logo_yungas.png
-        -->
         <a href="#" class="partner-logo" aria-label="Campesina Forestal">
           <img src="./imagenes/logo-removedbg.png" alt="Campesina Forestal" />
         </a>
@@ -570,81 +477,84 @@
     </div>
   </section>
 
-  <!-- NUESTRO PORQUÉ -->
+  <!-- OUR WHY -->
   <section class="porque section">
     <div class="container">
       <div class="porque-inner">
         <div class="porque-text">
-          <span class="label">Nuestro porqué</span>
-          <h2>La lenga es un árbol<br /><em>resiliente y amenazado.</em></h2>
-          <p>La lenga (<em>Nothofagus pumilio</em>) es uno de los árboles más antiguos y emblemáticos de la Patagonia. Crece en las alturas frías de la cordillera y cada otoño tiñe las laderas de rojos y dorados, dando refugio a una biodiversidad única.</p>
-          <p>Investigaciones recientes muestran que el aumento de temperatura amenaza su capacidad de regeneración. Para fines de este siglo, muchas zonas podrían volverse demasiado cálidas para que la lenga sobreviva sin ayuda.</p>
-          <p>En Lenga Land Lab nos inspiramos en este árbol, pero también en la urgencia de proteger ecosistemas frágiles. Creemos que la ciencia, la geografía y la información bien usada son herramientas poderosas para actuar a tiempo.</p>
+          <span class="label">Our Why</span>
+          <h2>The lenga is a tree<br /><em>both resilient and threatened.</em></h2>
+          <p>The lenga (<em>Nothofagus pumilio</em>) is one of Patagonia's oldest and most iconic trees. It grows in the cold highlands of the Andes, and every autumn paints the mountainsides in shades of red and gold, sheltering a unique biodiversity.</p>
+          <p>Recent research shows that rising temperatures threaten its capacity for regeneration. By the end of this century, many high-altitude zones may become too warm for the lenga to survive without intervention.</p>
+          <p>At Lenga Land Lab, we draw inspiration from this tree — but also from the urgency of protecting fragile ecosystems. We believe that science, geography, and well-used information are powerful tools for acting in time.</p>
         </div>
-        <div class="porque-img-placeholder">📍 Foto bosque de lenga</div>
+        <div class="porque-img-placeholder">📍 Lenga forest photo</div>
       </div>
 
       <div class="porque-stat">
-        <div class="porque-stat-num">Más del 75%</div>
-        <p>de la superficie terrestre ya fue alterada por la actividad humana.<br />Necesitamos cambiar la forma en que usamos el suelo. En Lenga apoyamos a quienes están revirtiendo malas prácticas, apostando por formas innovadoras de trabajar la tierra, restaurar ecosistemas y proyectar un mundo más justo.</p>
+        <div class="porque-stat-num">Over 75%</div>
+        <p>of the Earth's land surface has already been altered by human activity.<br />We need to change the way we use the land. At Lenga, we support those who are reversing harmful practices, pioneering innovative ways to work the land, restore ecosystems, and build a more just world.</p>
       </div>
 
       <div class="porque-fotos">
         <div class="porque-foto">
-          <img src="./imagenes/Women from Umapata.JPG" alt="Comunidad" />
+          <img src="./imagenes/Women from Umapata.JPG" alt="Community" />
         </div>
         <div class="porque-foto">
-          <img src="./imagenes/fotos_presentacion.jpg" alt="Paisaje" />
+          <img src="./imagenes/fotos_presentacion.jpg" alt="Landscape" />
         </div>
         <div class="porque-foto">
-          <img src="./imagenes/comunidad_juyhuay.JPG" alt="Territorio" />
+          <img src="./imagenes/comunidad_juyhuay.JPG" alt="Territory" />
         </div>
       </div>
 
-      <p class="porque-frase">Creamos comunidad, desde el Sur, para el mundo.</p>
+      <p class="porque-frase">Building community, from the Global South, for the world.</p>
     </div>
   </section>
 
-  <!-- CONTACTO -->
+  <!-- CONTACT -->
   <section class="contacto section" id="contacto">
     <div class="container">
       <div class="contacto-inner">
         <div class="contacto-left">
-          <p class="label">Hablemos</p>
-          <h2>¿Tenés un proyecto<br />en mente? <em>Contame.</em></h2>
-          <p>No hace falta que tengas todo claro todavía. Contame en qué estás trabajando, cuál es el desafío, y vemos juntos si podemos ayudarte.</p>
+          <p class="label">Let's Talk</p>
+          <h2>Have a project<br />in mind? <em>Tell us about it.</em></h2>
+          <p>You don't need to have everything figured out yet. Tell us what you're working on, what the challenge is, and we'll explore together whether we can help.</p>
           <div class="contacto-direct">
             <a href="mailto:hola@lenga.lat" class="contacto-link">✉ hola@lenga.lat</a>
-            <a href="https://wa.me/549XXXXXXXXXX" class="contacto-link" target="_blank">💬 WhatsApp directo →</a>
+            <a href="https://wa.me/549XXXXXXXXXX" class="contacto-link" target="_blank">💬 WhatsApp →</a>
           </div>
         </div>
         <form class="form" id="contactForm">
+          <input type="hidden" name="access_key" value="6446b729-19e6-4456-9ac3-c06c32b7409e" />
+          <input type="hidden" name="subject" value="New inquiry from lenga.lat (EN)" />
+          <input type="hidden" name="from_name" value="Lenga Land Lab" />
           <div class="form-group">
-            <label for="nombre">Tu nombre</label>
-            <input type="text" id="nombre" name="nombre" placeholder="María García" required />
+            <label for="nombre">Your name</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Jane Smith" required />
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="maria@organización.org" required />
+            <input type="email" id="email" name="email" placeholder="jane@organization.org" required />
           </div>
           <div class="form-group">
-            <label for="tipo">Tipo de organización</label>
+            <label for="tipo">Organization type</label>
             <select id="tipo" name="tipo">
-              <option value="">Seleccioná...</option>
-              <option>ONG / Sociedad civil</option>
-              <option>Proyecto de conservación</option>
-              <option>Empresa privada</option>
-              <option>Organismo público</option>
-              <option>Financiador / Fundación</option>
-              <option>Otro</option>
+              <option value="">Select...</option>
+              <option>NGO / Civil society</option>
+              <option>Conservation project</option>
+              <option>Private sector</option>
+              <option>Government agency</option>
+              <option>Funder / Foundation</option>
+              <option>Other</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="mensaje">¿En qué estás trabajando?</label>
-            <textarea id="mensaje" name="mensaje" placeholder="Contame brevemente tu proyecto o el desafío que tenés..." required></textarea>
+            <label for="mensaje">What are you working on?</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Briefly describe your project or the challenge you're facing..." required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Enviar mensaje →</button>
-          <p id="formMsg" style="font-size:.85rem;color:var(--verde);display:none;margin-top:.5rem;">¡Mensaje enviado! Te respondo a la brevedad.</p>
+          <button type="submit" class="btn btn-primary">Send message →</button>
+          <p id="formMsg" style="font-size:.85rem;color:var(--verde);display:none;margin-top:.5rem;">Message sent! We'll get back to you shortly.</p>
         </form>
       </div>
     </div>
@@ -655,37 +565,37 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <div class="footer-brand-logo">Lenga<span>.</span></div>
-        <div class="footer-tagline">Desde el Sur.</div>
+        <div class="footer-tagline">From the South.</div>
         <div class="footer-contact">
-          San Carlos de Bariloche<br />
+          San Carlos de Bariloche, Argentina<br />
           <a href="mailto:hola@lenga.lat">hola@lenga.lat</a>
         </div>
       </div>
       <div class="footer-col">
-        <h4>Soluciones</h4>
+        <h4>Solutions</h4>
         <ul>
-          <li><a href="#soluciones">Cómo entender tu impacto</a></li>
-          <li><a href="#soluciones">Herramientas</a></li>
-          <li><a href="#casos">Casos de uso</a></li>
+          <li><a href="#soluciones">Understanding your impact</a></li>
+          <li><a href="#soluciones">Tools</a></li>
+          <li><a href="#casos">Case studies</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Metodología</h4>
+        <h4>Methodology</h4>
         <ul>
-          <li><a href="#soluciones">Evidencias que inspiran</a></li>
-          <li><a href="#soluciones">Metodología y enfoque</a></li>
+          <li><a href="#soluciones">Evidence that inspires</a></li>
+          <li><a href="#soluciones">Methodology & approach</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Nosotros</h4>
+        <h4>About</h4>
         <ul>
-          <li><a href="#nosotros">Nuestro porqué</a></li>
-          <li><a href="#nosotros">Equipo</a></li>
+          <li><a href="#nosotros">Our why</a></li>
+          <li><a href="#nosotros">Team</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">© 2026 Lenga Land Lab · Análisis territorial para proyectos de impacto</span>
+      <span class="footer-copy">© 2026 Lenga Land Lab · Territorial analysis for impact projects</span>
       <div class="footer-social">
         <a href="https://instagram.com/lenga.lab" target="_blank" aria-label="Instagram">
           <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -713,10 +623,29 @@
       }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
       fadeEls.forEach(el => observer.observe(el));
     }
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      document.getElementById('formMsg').style.display = 'block';
-      this.reset();
+      const btn = this.querySelector('button[type="submit"]');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+      const data = new FormData(this);
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data
+      });
+      const result = await response.json();
+      const msg = document.getElementById('formMsg');
+      if (result.success) {
+        msg.textContent = 'Message sent! We\'ll get back to you shortly.';
+        msg.style.color = 'var(--verde)';
+        this.reset();
+      } else {
+        msg.textContent = 'Something went wrong. Please email us directly at hola@lenga.lat';
+        msg.style.color = '#c0392b';
+      }
+      msg.style.display = 'block';
+      btn.textContent = 'Send message →';
+      btn.disabled = false;
     });
   </script>
 </body>
